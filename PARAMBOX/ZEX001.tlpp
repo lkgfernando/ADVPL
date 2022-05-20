@@ -1,0 +1,28 @@
+#INCLUDE "TOTVS.CH"
+
+
+/*
++============================================================================================================+
+| Função: [ zEX001 => teste com data parambox ]                                                             |
+| Autor:  [ Fernando José Rodrigues ]                                                                       |
+| Data Criacao: [ 09/05/2022 ]                                                                              |
+| Última Alteração: [  ]                                                                                    |
++============================================================================================================+
+*/
+
+User Function zEX001()
+    LOCAL aPergs     := {}
+    LOCAL dDateIn    := FirstDate(Date())
+    LOCAL dDateUntil := LastDate(Date())
+
+    aAdd(aPergs, { 1, "Data De?", dDateIn, "", ".T.", "", ".T.", 80, .F. })
+    aAdd(aPergs, { 1, "Data Até?", dDateUntil, "", ".T.", "", ".T.", 80, .F. })
+    
+    
+
+    If ParamBox(aPergs, "Informe os Paramentros")
+        Alert(MV_PAR01)
+        Alert(MV_PAR02)
+    EndIf
+
+Return
