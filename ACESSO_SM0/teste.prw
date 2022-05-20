@@ -15,5 +15,5 @@
     @see (links_or_references)
     /*/
 User Function nomeFunction(param_name)
-    
+    LOCAL nTeste := 0
 Return return_var
