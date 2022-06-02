@@ -3,7 +3,7 @@
 /*
 +============================================================================================================+
 | Função: [ zTPVAR01 ]                                                                                       |
-| Função: [ Converções de Variaveis ]                                                                        |
+| Função: [ Conversões de Variaveis ]                                                                        |
 | Autor:  [ Fernando Jose Rodrigues ]                                                                        |
 | Data Criacao: [ 20/05/2022 ]                                                                               |
 | Última Alteração: [  ]                                                                                     |
