@@ -13,20 +13,20 @@
 
 User Function zMpVar01()
     LOCAL cVarTxt := ""
-    LOCAL cVarBd := "PI.17"
+    LOCAL cVarBd := "PI.760.BR"
     
 
-    cVarTxt := AllTrim(StrTran(cVarBd, ".", "-"))
+    cVarTxt := AllTrim(StrTran(cVarBd, ".", ""))
 
-    If Len(cVarTxt) >= 7 .AND. Len(cVarTxt) <= 13
+    If Len(cVarTxt) = 11
         
-        MsgAlert(SubStr(cVarTxt, 1, 7), "Manipulação de Variavel")
+        MsgAlert(SubStr(cVarTxt, 1, 6), "Manipulação de Variavel")
 
-    ElseIF Len(cVarTxt) >= 5 .AND. Len(cVarTxt) < 7
+    ElseIF Len(cVarTxt) = 6 
 
-        MsgAlert(SubStr(cVarTxt, 1, 5), "Manipulação de Variavel")
+        MsgAlert(SubStr(cVarTxt, 1, 4), "Manipulação de Variavel")
 
-    Else
+    ElseIf Len(cVarTxt) = 5
 
         MsgAlert(cVarTxt, "Manipulação de Variavel")
 
