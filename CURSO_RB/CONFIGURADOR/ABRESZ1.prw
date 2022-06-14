@@ -8,14 +8,15 @@
 // ##############################################################################################
 // Projeto: AULA DE CRIAÇÃO DE TELA
 // Modulo : SIGAATF
-// Fonte  : ABREZZ4.prw
+// Fonte  : ABRESZ1.prw
 // -------------+----------------------+---------------------------------------------------------
 // Data         | Autor                | Descricao
 // -------------+----------------------+---------------------------------------------------------
 // 08/06/2022   | FERNADO.RODRIGUES    | CRIAÇÃO DE RDMAKE
 // -------------+----------------------+---------------------------------------------------------*/ 
 
-User Function ABREZZ4()
+User Function ABRESZ1()
+    LOCAL aArea := GetArea()
     PRIVATE cCadastro := "Cadastro de UM Clientes"
 
     PRIVATE aRotina   :={{"Pesquisar", "AxPesqui", 0, 1}, ;
@@ -26,17 +27,20 @@ User Function ABREZZ4()
 
     PRIVATE cDelFunc  := ".T." //validação para exclusão. Pode-se utilizar ExecBlock
 
-    PRIVATE cString   := "ZZ4"
+    PRIVATE cString   := "SZ1"
     PRIVATE cCondicao := ""
     PRIVATE aIndSB1   := {}
-    PRIVATE cCampo
+    PRIVATE cCampo    := ""
     PRIVATE aCampos   := {}
 
-    DbSelectArea("ZZ4")
-    DbSetOrder(1)
+    DbSelectArea(cString)
+    (cString)->(DbSetOrder(1))
 
     //Asort(aCampos,,,{ |x, y|x[1]<y[1] })
     DbSelectArea(cString)
-    mBrowse( 6,1,22,75,cString,aCampos,cCampo)
-
+    //mBrowse( 6,1,22,75,cString,aCampos,cCampo)
+    
+    mBrowse(6, 1, 22, 75, cString )
+    (cString)->(DbCloseArea())
+    RestArea(aArea)
 Return
