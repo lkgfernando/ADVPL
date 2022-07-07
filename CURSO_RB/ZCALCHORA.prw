@@ -17,7 +17,6 @@ Converte valor numérico (ex.: 15.30) para hora (ex.: 15:30)
 User Function zVal2Hora(nValor, cSepar)
     Local cHora := ""
     Local cMinutos := ""
-    Local cTeste := 0
     Default cSepar := ":"
     Default nValor := -1
      
