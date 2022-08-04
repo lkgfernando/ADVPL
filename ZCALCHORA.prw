@@ -27,7 +27,7 @@ User Function zVal2Hora(nValor, cSepar)
          
     //Senão, transforma o valor numérico
     Else
-        cHora := Alltrim(Transform(nValor, "@E 99.99"))
+        cHora := Alltrim(Transform(nValor, "@E 999.99"))
          
         //Se o tamanho da hora for menor que 5, adiciona zeros a esquerda
         If Len(cHora) < 5
