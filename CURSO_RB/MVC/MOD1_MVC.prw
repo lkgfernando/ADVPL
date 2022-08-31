@@ -11,15 +11,13 @@
 
 /*/
 User Function MOD1_MVC()
-    Local oBrowse
-
-    oBrowse := FwMBrowse():New()
+   oBrowse := FwMBrowse():New()
     oBrowse:SetAlias('SZ1')
     oBrowse:SetDescription('Cadastro de UM Cliente')
     oBrowse:AddLegend("Z1_TIPO == 'D'", "YELLOW",   "Divide")
     oBrowse:AddLegend("Z1_TIPO == 'M'", "GREEN" ,   "Multiplica")
 
-    oBrowse:DisableDetail()
+    //oBrowse:DisableDetail()
     oBrowse:Activate()
 
 Return Nil
@@ -52,13 +50,13 @@ Return aRotina
     @author Fernando Jose rodrigues
     @since 30/08/2022
 /*/
-Static Function ModelDef(param_name)
+Static Function ModelDef()
     Local oStruSZ1 := FWFormStruct(1, 'SZ1', /*bAvalCampo*/, /*lViewUsado*/)
     Local oModel
 
     oModel := MPFormModel():New('MOD1MVCM', , , ,)
 
-    oModel:AddFields('SZ1MASTER', , oStruSZ1, , , , )
+    oModel:AddFields('SZ1MASTER', , oStruSZ1, , , )
 
     oModel:SetPrimaryKey({'Z1_FILIAL,', 'Z1_CLIENT', 'Z1_LOJA'})
 
@@ -66,7 +64,7 @@ Static Function ModelDef(param_name)
 
     oModel:GetModel( 'SZ1MASTER' ):SetDescription('Dados de UM Cliente')
 
-    oModel:SetVldActivate( { |oMOdel| MOD1ACT( oMOdel )})
+    //oModel:SetVldActivate( { |oModel| MOD1ACT( oModel )})
 
 
 Return oModel
@@ -78,6 +76,77 @@ Return oModel
     @since 30/08/2022
 /*/
 Static Function ViewDef()
+    Local oModel := FWLoadModel( 'MOD1_MVC' )
+    Local oStruSZ1 := FWFormStruct(2, 'SZ1')
+    Local oView
+
+    oView := FWFormView():New()
+
+    oView:SetModel( oModel )
+
+    oView:AddField( 'VIEW_SZ1', oStruSZ1, 'SZ1MASTER')
+
+    //oStruSz1:RemoveField('Z1_MVC')
+
+    oView:CreateHorizontalBox( 'TELA', 100 )
+
+    oView:SetOwnerView( 'VIEW_SZ1', 'TELA')
     
+    oView:SetCloseOnOk({|| .T.})
     
-Return return_var
+Return oView
+
+/*/{Protheus.doc} MOD1CPOS
+        Montagem view em MVC
+    @type  Static Function
+    @author Fernando Jose Rodrigues
+    @since 30/08/2022
+/*/
+Static Function MOD1CPOS(oModel)
+    Local nOperation := oModel:GetOperation()
+    Local lRet       := .T.
+
+    If nOperation == 4
+        If Empty( oModel:GetValue( 'SZ1MASTER', 'Z1_MVC'))
+            Help( ,, 'HELP',, 'Informe o campo MVC', 1, 0)
+            lRet := .F.
+        EndIf
+    EndIf    
+Return lRet
+
+/*/{Protheus.doc} MOD1ACT
+    Passa o model sem dados
+    @type  Static Function
+    @author Fernando José Rodrigues
+    @since 30/08/2022
+/*/
+Static Function MOD1ACT(oModel)
+    Local aArea         := GetArea()
+    Local cQuery        := ''
+    Local cTmp          := ''
+    Local lRet          := .T.
+    Local nOperation    := oModel:GetOperation()
+
+    If nOperation == 5 .And. lRet
+        cTmp := GetNextAlias()
+
+        cQuery := " SELECT Z1_CLIENT FROM " + RetSqlName('SZ1') + " Z1 "
+        cQuery += "WHERE EXIXTS ( "
+        cQuery += "         SELECT 1 FROM " + RetSqlName('SA1') + " A1 "
+        cQuery += "         WHERE Z1_CLIENT = A1_COD AND Z1_LOJA = A1_LOJA"
+        cQuery += "         AND A1.D_E_L_E_T <> '*' "
+        cQuery += "         AND Z1_CLIENT = '" + SZ1->Z1_CLIENT + "' "
+        cQuery += "         AND Z1.D_E_L_E_T = ' ' "
+    EndIf
+
+    dbUseArea(.T., "TOPCONN", TcGenQry( ,, cQuery), cTmp, .F., .T.)
+
+    lRet := (cTmp)-> ( EOF())
+    (cTmp)->(dbCloseArea())
+
+    If !lRet
+        Help( , , 'HELP',, 'Este Cadastro não pode ser excluido.', 1, 0)
+    EndIf
+
+    RestArea(aArea)
+Return lRet 
