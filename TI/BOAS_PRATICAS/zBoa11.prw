@@ -17,7 +17,7 @@ User Function zBoa11()
     aadd(aFields, {"FILIAL", "C", 2 , 0})
     aadd(aFields, {"NOME"  , "C", 50, 0})
     aadd(aFields, {"VALOR" , "N", 8 , 2})
-    aadd(aFields, {"EMISAO", "D", 8 , 0})
+    aadd(aFields, {"EMISSAO", "D", 8 , 0})
 
     oTempTable:SetFields( aFields )
 
@@ -26,9 +26,9 @@ User Function zBoa11()
     RecLock(cAliasTmp, .T.)
         (cAliasTmp)->FILIAL  := ""
         (cAliasTmp)->NOME    := "Teste"
-        (cAliasTmp)->VAL     := 30
+        (cAliasTmp)->VALOR  := 30
         (cAliasTmp)->EMISSAO := Date()
-    (cAliasTmp)->(MsUnlock)
+    (cAliasTmp)->(MsUnlock())
 
     MsgAlert("Nome real da temporaria: [" + oTempTable:GetRealName() + "]", "Tabela temporaria")
 
