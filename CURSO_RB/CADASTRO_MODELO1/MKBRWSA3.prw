@@ -19,6 +19,7 @@ User Function MkBrwSA3()
 
     AADD(aRotina, {"Visuarlizar Lote", "U_VisVend", 0, 5})
 
+    AADD(aCpos, "A3_ZOK")
     AADD(aCpos, "A3_COD")
     AADD(aCpos, "A3_NOME")
     AADD(aCpos, "A3_NREDUZ")
@@ -60,15 +61,15 @@ User Function VisVend()
 
     While !Eof()
         If SA3->A3_ZOK == cMark .And. !lInvert
-            AADD(aRecSel,{SA3->(Recno()),SA3->A3_CODE, SA3->A3_NOME, SA3->A3_NREDUZ })
+            AADD(aRecSel,{SA3->(Recno()),SA3->A3_COD, SA3->A3_NOME, SA3->A3_NREDUZ })
         ElseIf SA3->A3_ZOK != cMarca .And. lInver
-            AADD(aRecSel,{SA3->(Recno()),SA3->A3_CODE, SA3->A3_NOME, SA3->A3_NREDUZ })
+            AADD(aRecSel,{SA3->(Recno()),SA3->A3_COD, SA3->A3_NOME, SA3->A3_NREDUZ })
         EndIf
         DbSkip()
     EndDo
 
     If Len(aRecSel) > 0
-        cTexto := "Codigo  |  Nome                 |  Nome Reduzido"
+        cTexto := "Codigo  |  Nome                 |  Nome Reduzido" + CRLF
                                 
         For nX := 1 To Len(aRecSel)
             cTexto += aRecSel[nX][2] + Space(2) +"|"+ Space(2) + SubString(aRecSel[nX][3], 1, 20) + Space(3) + "|"  
@@ -95,7 +96,7 @@ Return
 Static Function LimpaMarca()
     Local nX := 0
 
-    For nX := 1 To Len(aRecCel)
+    For nX := 1 To Len(aRecSel)
         SA3->(DbGoTo(aRecSel[nX][1]))
         RecLock("SA3", .F.)
         SA3->A3_ZOK := Space(2)            
