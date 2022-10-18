@@ -40,17 +40,11 @@ User Function MkBrwSA3()
     RestArea(aArea)
 Return
 
-/*/{Protheus.doc} User Function VisVend
+/*/{Protheus.doc} User VisVend
     (long_description)
     @type  Function
-    @author user
+    @author Fernando Jose Rodrigues
     @since 18/10/2022
-    @version version
-    @param param_name, param_type, param_descr
-    @return return_var, return_type, return_description
-    @example
-    (examples)
-    @see (links_or_references)
     /*/
 User Function VisVend()
     Local cMark := ThisMark()
@@ -75,6 +69,36 @@ User Function VisVend()
 
     If Len(aRecSel) > 0
         cTexto := "Codigo  |  Nome                 |  Nome Reduzido"
-        
+                                
+        For nX := 1 To Len(aRecSel)
+            cTexto += aRecSel[nX][2] + Space(2) +"|"+ Space(2) + SubString(aRecSel[nX][3], 1, 20) + Space(3) + "|"  
+            cTexto += Space(2) + SubString(aRecSel[nX][4],1 ,20) + Space(2)
+            cTexto += +CRLF
+
+        Next nX
+
+        DEFINE MSDIALOG oDlg TITLE "Cadastro de Vendedores" FROM 000,000 TO 350,400 PIXEL
+        @ 005,005 GET oMemo VAR cTexto MEMO SIZE 150,150 OF oDlg PIXEL
+        oMemo:bRClicked := {||AllWaysTrue()} 
+        DEFINE SBUTTON FROM 005,165 TYPE 1 ACTION oDlg:End() ENABLE OF oDlg PIXEL
+        ACTIVATE MSDIALOG oDlg CENTERED 
+        LimpaMarca()
     EndIf
 Return
+
+/*/{Protheus.doc} LimpaMarca
+    (long_description)
+    @type  Static Function
+    @author Fernando Jose Rodrigues
+    @since 18/10/2022
+/*/
+Static Function LimpaMarca()
+    Local nX := 0
+
+    For nX := 1 To Len(aRecCel)
+        SA3->(DbGoTo(aRecSel[nX][1]))
+        RecLock("SA3", .F.)
+        SA3->A3_ZOK := Space(2)            
+        MsUnlock()
+    Next nX
+Return 
