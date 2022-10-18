@@ -71,7 +71,7 @@ User Function VisLote()
         DbSkip()
     EndDo
 
-    If Len(RecSel) > 0
+    If Len(aRecSel) > 0
         cTexto := "Cliente  |  Loja  | Cod.Produto" + CRLF
 
         For nX := 1 To Len(aRecSel)

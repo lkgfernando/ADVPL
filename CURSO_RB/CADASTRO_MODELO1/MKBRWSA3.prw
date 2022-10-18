@@ -17,7 +17,7 @@ User Function MkBrwSA3()
     Private cCadastro := "Cadastro de Vendedores"
     Private aRecSel := {}
 
-    AADD(aRotina, {"Visuarlizar Lote", "U_VisLote", 0, 5})
+    AADD(aRotina, {"Visuarlizar Lote", "U_VisVend", 0, 5})
 
     AADD(aCpos, "A3_COD")
     AADD(aCpos, "A3_NOME")
@@ -38,4 +38,43 @@ User Function MkBrwSA3()
   
 
     RestArea(aArea)
-Return 
+Return
+
+/*/{Protheus.doc} User Function VisVend
+    (long_description)
+    @type  Function
+    @author user
+    @since 18/10/2022
+    @version version
+    @param param_name, param_type, param_descr
+    @return return_var, return_type, return_description
+    @example
+    (examples)
+    @see (links_or_references)
+    /*/
+User Function VisVend()
+    Local cMark := ThisMark()
+    Local nX := 0
+    Local lInvert := ThisInv()
+    Local cTexto := ""
+    Local oDlg
+    Local oMemo
+
+    DbSelectArea("SA3")
+    DbSetOrder(1)
+    DbGoTop()
+
+    While !Eof()
+        If SA3->A3_ZOK == cMark .And. !lInvert
+            AADD(aRecSel,{SA3->(Recno()),SA3->A3_CODE, SA3->A3_NOME, SA3->A3_NREDUZ })
+        ElseIf SA3->A3_ZOK != cMarca .And. lInver
+            AADD(aRecSel,{SA3->(Recno()),SA3->A3_CODE, SA3->A3_NOME, SA3->A3_NREDUZ })
+        EndIf
+        DbSkip()
+    EndDo
+
+    If Len(aRecSel) > 0
+        cTexto := "Codigo  |  Nome                 |  Nome Reduzido"
+        
+    EndIf
+Return
