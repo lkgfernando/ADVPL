@@ -23,6 +23,7 @@ User Function MkBrwSA3()
     AADD(aCpos, "A3_COD")
     AADD(aCpos, "A3_NOME")
     AADD(aCpos, "A3_NREDUZ")
+    AADD(aCpos, "A3_TIPVEND")
 
     DbSelectArea("SX3")
     DbSetOrder(2)
