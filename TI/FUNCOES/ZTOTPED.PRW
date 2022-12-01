@@ -89,7 +89,7 @@ User Function zTotPed(cNumPed)
                         0,;                                     // 15-RecNo do SB1
                         0)                                     // 16-RecNo do SF4
               
-            //nItem++
+            nItem++
             QRY_ITE->(DbSkip())
         EndDo
           
