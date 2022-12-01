@@ -69,6 +69,7 @@ Static Function ModelDef()
     oModel:SetDescription("Modelo de dados - " + cTitulo)
     oModel:GetModel("ZC1MASTER"):SetDescription("Dados de - " + cTitulo)
     oModel:GetModel("ZC2DETAIL"):SetDescription("Grid de - " + cTitulo)
+    oModel:GetModel("ZC2DETAIL"):SetOptional(.T.)
     oModel:SetPrimaryKey({})
 
     aAdd(aRelation, {"ZC2_FILIAL", "FWxFilial('ZC2')"})
