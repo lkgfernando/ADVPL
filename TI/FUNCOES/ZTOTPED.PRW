@@ -36,7 +36,7 @@ User Function zTotPed(cNumPed)
         cQryIte += "    ) "
         cQryIte += " WHERE "
         cQryIte += "    C6_FILIAL = '"+FWxFilial('SC6')+"' "
-        cQryIte += "    AND C6_NUM = '"+cNumPed+"' "
+        cQryIte += "    AND C6_ZZPDORG = '"+cNumPed+"' "
         cQryIte += "    AND SC6.D_E_L_E_T_ = ' ' "
         cQryIte += " ORDER BY "
         cQryIte += "    C6_ITEM "
@@ -89,7 +89,7 @@ User Function zTotPed(cNumPed)
                         0,;                                     // 15-RecNo do SB1
                         0)                                     // 16-RecNo do SF4
               
-            nItem++
+           // nItem++
             QRY_ITE->(DbSkip())
         EndDo
           
