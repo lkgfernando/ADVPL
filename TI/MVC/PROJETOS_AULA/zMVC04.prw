@@ -15,18 +15,18 @@ Static cCamposChv := "ZD4_ANO"
     @since 06/12/2022
     /*/
 User Function zMVC04()
-    Local aArea := GetArea()
+    Local aArea := FWGetArea()
     Local oBrowse
-    Private aRot := {}
+    Private aRotina := {}
 
-    aRot := MenuDef()
+    aRotina := MenuDef()
 
     oBrowse := FWMBrowse():New()
     oBrowse:SetAlias("ZD4")
     oBrowse:SetDescription(cTitulo)
     oBrowse:Activate()
 
-    RestArea(aArea)
+    FWRestArea(aArea)
 Return Nil
 
 /*/{Protheus.doc} MenuDef
@@ -36,14 +36,14 @@ Return Nil
     @since 06/12/2022
 /*/
 Static Function MenuDef()
-    Local aRot := {}
+    Local aRotina := {}
 
-    ADD OPTION aRot TITLE 'Vizualizar' ACTION 'VIEWDEF.zMVC04' OPERATION MODEL_OPERATION_VIEW ACCESS 0 //OPERATION 1
-    ADD OPTION aRot TITLE 'Incluir' ACTION 'VIEWDEF.zMVC04' OPERATION MODEL_OPERATION_INSERT ACCESS 0  //OPERATION 3
-    ADD OPTION aRot TITLE 'Alterar' ACTION 'VIEWDEF.zMVC04' OPERATION MODEL_OPERATION_UPDATE ACCESS 0  //OPERATION 4
-    ADD OPTION aRot TITLE 'Excluir' ACTION 'VIEWDEF.zMVC04' OPERATION MODEL_OPERATION_DELETE ACCESS 0  //OPERATION 5
+    ADD OPTION aRotina TITLE 'Vizualizar' ACTION 'VIEWDEF.zMVC04' OPERATION 1 ACCESS 0 //OPERATION 1 MODEL_OPERATION_VIEW
+    ADD OPTION aRotina TITLE 'Incluir' ACTION 'VIEWDEF.zMVC04' OPERATION 3 ACCESS 0  //OPERATION 3 MODEL_OPERATION_INSERT
+    ADD OPTION aRotina TITLE 'Alterar' ACTION 'VIEWDEF.zMVC04' OPERATION 4 ACCESS 0  //OPERATION 4 MODEL_OPERATION_UPDATE
+    ADD OPTION aRotina TITLE 'Excluir' ACTION 'VIEWDEF.zMVC04' OPERATION 5 ACCESS 0  //OPERATION 5 MODEL_OPERATION_DELETE
 
-Return aRot
+Return aRotina
 
 
 /*/{Protheus.doc} ModelDef
@@ -53,22 +53,25 @@ Return aRot
     @since 06/12/2022
 /*/
 Static Function ModelDef()
-    Local oModel := Nil
-    Local oStruCab := FWFormStruct(1, 'ZD4', {|cCampo| Alltrim(cCampo) $ cCamposChv})
+    Local oModel 
+    Local oStruCab := FWFormStruct(1, "ZD4", {|cCampo| Alltrim(cCampo) $ cCamposChv})
     Local oStruGrid := fModStruct()
+    Local aRelation := {}
 
     oModel := MPFormModel():New('zMVC04M', /*bPreValidacao*/, /*bProsValidacao*/, /*bCommit*/, /*bCancel*/)
 
-    oModel:AddFields('MASTERZD4', Nil, oStruCab)
+    oModel:AddFields('MASTERZD4', Nil , oStruCab)
     oModel:AddGrid('GRIDZD4', 'MASTERZD4', oStruGrid)
-
-    oModel:SetRelation('GRIDZD4', {;
-                        {'ZD4_FILIAL', 'xFilial("ZD4")'},;
-                        {'ZD4_ANO', 'ZD4_ANO'};
-                        }, ZD4->(IndexKey(1)))
-    oModel:GetModel("GRIDZD4"):SetMaxLine(9999)
-    oModel:SetDescription("Cadastro de Premiações")
+    oModel:GetModel("MASTERZD4"):SetDescription("Dados - " + cTitulo)
+    oModel:GetModel("GRIDZD4"):SetDescription("Grid de  - " + cTitulo)
     oModel:SetPrimaryKey({"ZD4_FILIAL", "ZD4_ANO"})
+
+    aAdd(aRelation, {"ZD4_FILIAL", "FWxFilial('ZD4')"})
+    aAdd(aRelation, {"ZD4_ANO", "ZD4_ANO"})
+
+    oModel:SetRelation('GRIDZD4', aRelation, ZD4->(IndexKey(1)))
+
+    //oModel:GetModel("GRIDZD4"):SetMaxLine(9999)
 
 
 Return oModel
@@ -80,7 +83,7 @@ Return oModel
     @since 06/12/2022
 /*/
 Static Function ViewDef()
-    Local oView := Nil
+    Local oView 
     Local oModel := FWLoadModel('zMVC04')
     Local oStruCab := FWFormStruct(2, "ZD4", {|cCampo| Alltrim(cCampo) $ cCamposChv})
     Local oStruGrd := fVeiwStruct()
@@ -105,13 +108,6 @@ Static Function ViewDef()
 Return oView
 
 
-/*/{Protheus.doc} fViewStruct
-    (long_description)
-    @type  Static Function
-    @author Fernando Rodrigues
-    @since 06/12/2022
-/*/
-
 /*/{Protheus.doc} fModStruct
     (long_description)
     @type  Static Function
@@ -123,7 +119,14 @@ Static Function fModStruct()
     oStruct := FWFormStruct(1, 'ZD4')
 Return oStruct
 
+/*/{Protheus.doc} fViewStruct
+    (long_description)
+    @type  Static Function
+    @author Fernando Rodrigues
+    @since 06/12/2022
+/*/
+
 Static Function fViewStruct()
     Local oStruct
-    oStruct := FWFormStruct(2, 'ZD4', {|cCampo| ! (Alltrim(cCampo) $ cCamposChv)})
+    oStruct := FWFormStruct(2, "ZD4", {|cCampo| ! Alltrim(cCampo) $ cCamposChv})
 Return oStruct
