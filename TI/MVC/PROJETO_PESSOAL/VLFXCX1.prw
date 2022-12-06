@@ -23,10 +23,16 @@ User Function VLFXCX1()
 
     oBrowse := FWMBrowse():New()
     oBrowse:SetAlias(cZV2)
+    oBrowse:AddLegend("ZV2_FCAIXA == '0'","GREEN","Aberto")
+    oBrowse:AddLegend("ZV2_FCAIXA == '1'","RED","FECHADO")
+
     oBrowse:SetDescription(cTitulo)
     oBrowse:DisableDetails()
 
+
     oBrowse:Activate()
+
+
 
     RestArea(aArea)
 Return Nil
