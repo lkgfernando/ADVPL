@@ -125,5 +125,5 @@ Return oStruct
 
 Static Function fViewStruct()
     Local oStruct
-    oStruct := FWFormStruct(2, "ZD4", {|cCampo| ! (Alltrim(cCampo) $ cCamposChv)})
+    oStruct := FWFormStruct(2, 'ZD4', {|cCampo| ! (Alltrim(cCampo) $ cCamposChv)})
 Return oStruct
