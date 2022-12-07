@@ -58,10 +58,10 @@ Static Function ModelDef()
     Local oStruGrid := fModStruct()
     Local aRelation := {}
 
-    oModel := MPFormModel():New('zMVC04M', /*bPreValidacao*/, /*bProsValidacao*/, /*bCommit*/, /*bCancel*/)
+    oModel := MPFormModel():New("zMVC04M", /*bPreValidacao*/, /*bProsValidacao*/, /*bCommit*/, /*bCancel*/)
 
-    oModel:AddFields('MASTERZD4', Nil , oStruCab)
-    oModel:AddGrid('GRIDZD4', 'MASTERZD4', oStruGrid)
+    oModel:AddFields("MASTERZD4",  /* */, oStruCab)
+    oModel:AddGrid("GRIDZD4", "MASTERZD4", oStruGrid)
     oModel:GetModel("MASTERZD4"):SetDescription("Dados - " + cTitulo)
     oModel:GetModel("GRIDZD4"):SetDescription("Grid de  - " + cTitulo)
     oModel:SetPrimaryKey({"ZD4_FILIAL", "ZD4_ANO"})
@@ -69,7 +69,7 @@ Static Function ModelDef()
     aAdd(aRelation, {"ZD4_FILIAL", "FWxFilial('ZD4')"})
     aAdd(aRelation, {"ZD4_ANO", "ZD4_ANO"})
 
-    oModel:SetRelation('GRIDZD4', aRelation, ZD4->(IndexKey(1)))
+    oModel:SetRelation("GRIDZD4", aRelation, ZD4->(IndexKey(1)))
 
     //oModel:GetModel("GRIDZD4"):SetMaxLine(9999)
 
@@ -84,26 +84,27 @@ Return oModel
 /*/
 Static Function ViewDef()
     Local oView 
-    Local oModel := FWLoadModel('zMVC04')
+    Local oModel := FWLoadModel("zMVC04")
     Local oStruCab := FWFormStruct(2, "ZD4", {|cCampo| Alltrim(cCampo) $ cCamposChv})
-    Local oStruGrd := fVeiwStruct()
+    Local oStruGrd := fViewStruct()
+
 
     oStruCab:SetNoFolder()
 
     oView := FWFormView():New()
     oView:SetModel(oModel)
 
-    oView:AddField('VIEW_ZD4', oStruCab, 'MASTERZD4')
-    oView:AddGrid('VGRD_ZD4', oStruGrd, 'GRIDZD4')
+    oView:AddField("VIEW_ZD4", oStruCab, "MASTERZD4")
+    oView:AddGrid("VGRD_ZD4", oStruGrd, "GRIDZD4")
 
     oView:CreateHorizontalBox("MAIN", 25)
     oView:CreateHorizontalBox("GRID", 75)
 
-    oView:SetOwnerView('VIEW_ZD4', 'MAIN')
-    oView:SetOwnerView('VGRD_ZD4', 'GRID')
+    oView:SetOwnerView("VIEW_ZD4", "MAIN")
+    oView:SetOwnerView("VGRD_ZD4", "GRID")
     oView:EnableControlBar(.T.)
 
-    oView:AddIncrementField('VGRD_ZD4', 'ZD4_ITEM')
+    oView:AddIncrementField("VGRD_ZD4", "ZD4_ITEM")
 
 Return oView
 
@@ -116,7 +117,7 @@ Return oView
 /*/
 Static Function fModStruct()
     Local oStruct
-    oStruct := FWFormStruct(1, 'ZD4')
+    oStruct := FWFormStruct(1, "ZD4")
 Return oStruct
 
 /*/{Protheus.doc} fViewStruct
