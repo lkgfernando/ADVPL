@@ -7,7 +7,7 @@ Static cCabCot := "ZC1"
 Static cGrdCot := "ZC2"
 
 /*/{Protheus.doc} User Function PSCT010
-    (long_description)
+    (Browse de cadastro de cotação)
     @type  Function
     @author FERNANDO RODRIGUES
     @since 29/11/2022
@@ -44,6 +44,7 @@ Static Function MenuDef()
     ADD OPTION aRotina TITLE "Incluir" ACTION "VIEWDEF.PSCT010" OPERATION 3 ACCESS 0 
     ADD OPTION aRotina TITLE "Alterar" ACTION "VIEWDEF.PSCT010" OPERATION 4 ACCESS 0 
     ADD OPTION aRotina TITLE "Excluir" ACTION "VIEWDEF.PSCT010" OPERATION 5 ACCESS 0 
+    ADD OPTION aRotina TITLE "Gerar Cotação" ACTION "u_PSCT020()" OPERATION 5 ACCESS 0 
 
 Return aRotina 
 
