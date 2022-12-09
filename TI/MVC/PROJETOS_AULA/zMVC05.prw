@@ -9,34 +9,63 @@
     @since 07/12/2022
 /*/
 User Function zMVC05()
-    Local aArea := FWGetArea()
-    Local aPergs := {}
-    Local dDatDe := FirstDate(Date())
-    Local dDatAt := LastDate(Date())
+    Private oMark
+    Private aRotina := {}
 
-    aAdd(aPergs, {1, "Data De", dDatDe, "", ".T.", "", ".T.", 80, .F.})
-    aAdd(aPergs, {1, "Data Até", dDatAt, "", ".T.", "", ".T.", 80, .T.})
+    aRotina := MenuDef()
+
+    oMark := FwMarkBrowse():New()
+    oMark:Setalias('ZD1')
+
+    oMark:SetSemaphore(.T.)
+    oMark:SetDescription('Seleção do Cadastro de Artista')
+    oMark:SetFieldMark('ZD1_OK')
+
+    oMark:Activate()
+
+Return Nil
+
+/*/{Protheus.doc} MenuDef
+    (long_description)
+    @type  Static Function
+    @author Fernando Rodrigues
+    @since 08/12/2022
+/*/
+Static Function MenuDef()
+    Local aRotina := {}
     
-    If ParamBox(aPergs, "Informe os parametros")
-        If dDatAt >= dDatDe
-            Processa({|| U_fPsCot01()})
-        else
-            MsgStop("Data Até deve ser maior ou igual a Data De", "Atenção")
-        EndIf
-    EndIf
-    FWRestArea(aArea)
-Return
+    ADD OPTION aRotina TITLE 'Processar' ACTION 'U_zMarkProc' OPERATION 2 ACCESS 0
 
-/*/{Protheus.doc} User Function fPsCot01
+Return aRotina
+
+/*/{Protheus.doc} User Function zMarkProc
     (long_description)
     @type  Function
     @author Fernando Rodrigues
-    @since 07/12/2022
-    @version 1.0
+    @since 08/12/2022
 /*/
-User Function fPsCot01()
-    Local cQryZC1 := ""
-    
-    
-Return 
+User Function zMarkProc()
+    Local aArea := FWGetArea()
+    Local cMarca := oMark:Mark()
+    Local nTotal := 0
 
+    ZD1->(DbGoTop())
+    While ! ZD1->(EOF())
+
+        If oMark:IsMark(cMarca)
+            nTotal++
+
+            //Limpando o campo ZD1_OK
+            RecLock('ZD1', .F.)
+                ZD1_OK := ''
+            ZD1->(MsUnlock())
+        EndIf
+
+        ZD1->(DbSkip())
+
+    EndDo
+
+    MsgInfo('Foram marcados <b>' + cValToChar( nTotal ) + ' artistas </b>.', "Atenção")
+
+    FWRestArea(aArea)
+Return
