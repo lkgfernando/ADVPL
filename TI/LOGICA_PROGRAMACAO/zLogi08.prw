@@ -60,5 +60,12 @@ User Function zLogi08()
         MsgInfo("Kauan não foi encontrado", "Atenção") 
     EndIf
 
+
+    //Excluir elementos no array
+    aDel(aPessoa, nPos)
+    aSize(aPessoa, Len(aPessoa) - 1)
+    Alert("Array aPessoa com " + cValToChar(Len(aPessoa)) + " linas")
+
+
     RestArea(aArea)
 Return 
