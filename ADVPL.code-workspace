@@ -5,7 +5,8 @@
 		}
 	],
 	"settings": {
-		"totvsLanguageServer.welcomePage": false
+		"totvsLanguageServer.welcomePage": false,
+		"totvsLanguageServer.askCompileResult": false
 	},
 	"launch": {
 		"version": "0.2.0",
