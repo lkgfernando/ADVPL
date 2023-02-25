@@ -15,6 +15,10 @@
 	"lastPrograms": [
 		{
 			"label": "SIGAMDI"
+		},
+		{
+			"args": [],
+			"label": "zCalTri"
 		}
 	],
 	"lastProgramExecuted": "SIGAMDI"
