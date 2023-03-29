@@ -28,8 +28,8 @@ User Function zArray03()
     For nCnt := 1 To Len(aX)
         cMsg += "[ " + cValToChar(nCnt) + " ] : " + cValToChar(aX[nCnt]) + CRLF
     Next nCnt
-
-    cMsg += "Tabuada " + cValTochar(nSize) + CRLF
+    cMsg += "<br />"
+    cMsg += "<b>Tabuada " + cValTochar(nSize) + "</b>" + CRLF
 
     For nCnt := 1 To 10
         aAdd(aZ, nCnt * nSize)

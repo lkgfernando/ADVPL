@@ -19,6 +19,14 @@
 		{
 			"args": [],
 			"label": "zCalTri"
+		},
+		{
+			"args": [],
+			"label": "zDuasLinhas"
+		},
+		{
+			"args": [],
+			"label": "u_zDuasLinhas"
 		}
 	],
 	"lastProgramExecuted": "SIGAMDI"
