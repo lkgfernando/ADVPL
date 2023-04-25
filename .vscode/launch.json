@@ -27,7 +27,16 @@
 		{
 			"args": [],
 			"label": "u_zDuasLinhas"
+		},
+		{
+			"args": [],
+			"label": "zTcQuery"
+		},
+		{
+			"args": [],
+			"label": "U_zTcQuery"
 		}
 	],
-	"lastProgramExecuted": "SIGAMDI"
+	"lastProgramExecuted": "u_zTcQuery",
+	"lastProgramArguments": []
 }
