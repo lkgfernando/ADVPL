@@ -1,0 +1,61 @@
+#Include "Protheus.ch"
+#Include "tlpp-core.th"
+
+#Define C_GRUPO "99"
+#Define C_FILIAL "01"
+
+
+/*/{Protheus.doc} User Function zFwPreparedStatement  
+    (long_description)
+    @type  Function
+    @author Fernando José Rodrigues
+    @since 12/05/2023
+    @version version
+    @param , , 
+    @return , , 
+    @example
+    (examples)
+    @see (links_or_references)
+    /*/
+User Function zFwPreparedStatement()
+    Local aArea := FwGetArea()
+    Local oStatement
+    Local cQuery
+    Local cFinalQuery
+    Local cCod  := "001010"
+    Local cLoja := "01"
+
+   
+
+    If Type("cFilAnt") == "C" .And. TCIsConnected()
+        Conout("Ambiente Protheus aberto")
+    else
+        RpcSetEnv(C_GRUPO, C_FILIAL)
+    EndIf
+ 
+    oStatement  := FwPreparedStatement():New()
+    cQuery      := " SELECT " + CRLF
+    cQuery      += " * " + CRLF
+    cQuery      += " FROM " + CRLF
+    cQuery      += " " + RetSqlName("SA2") + " " + CRLF
+    cQuery      += " WHERE " + CRLF
+    cQuery      += " A2_COD = ? " + CRLF
+    cQuery      += " AND A2_LOJA = ? " + CRLF
+    cQuery      += " AND D_E_L_E_T_ <> ? "
+
+    MemoWrit("ZFWPREPAREDSTATEMENT.SQL", cQuery)
+
+    oStatement:SetQuery(cQuery)
+    oStatement:SetString(1, cCod)
+    oStatement:SetString(2, cLoja)
+    oStatement:SetString(3, "*")
+
+    cFinalQuery := oStatement:GetFixQuery()
+
+     MemoWrit("ZFWPREPAREDSTATEMENT.SQL", cFinalQuery)
+         
+ 
+    
+    FwRestArea(aArea)
+
+Return 

@@ -35,7 +35,16 @@
 		{
 			"args": [],
 			"label": "U_zTcQuery"
+		},
+		{
+			"args": [],
+			"label": "u_zFwPreparedStatement"
+		},
+		{
+			"args": [],
+			"label": "u_zMedia"
 		}
 	],
-	"lastProgramExecuted": "SIGAMDI"
+	"lastProgramExecuted": "u_zMedia",
+	"lastProgramArguments": []
 }
