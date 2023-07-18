@@ -43,8 +43,15 @@
 		{
 			"args": [],
 			"label": "u_zMedia"
+		},
+		{
+			"args": [],
+			"label": "u_zArray"
+		},
+		{
+			"args": [],
+			"label": "u_zBlocoCod"
 		}
 	],
-	"lastProgramExecuted": "u_zMedia",
-	"lastProgramArguments": []
+	"lastProgramExecuted": "SIGAMDI"
 }
