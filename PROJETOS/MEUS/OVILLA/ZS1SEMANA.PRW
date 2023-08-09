@@ -16,6 +16,9 @@
     /*/
 User Function Zs1Semana()
     Local oBrowse
+    Private aRotina := {}
+
+    aRotina := MenuDef()
 
     oBrowse := FWMBrowse():New()
     oBrowse:SetAlias('ZS1')
@@ -42,8 +45,8 @@ Return Nil
 Static Function MenuDef()
     Local aRotina := {}
 
-    ADD OPTION aRotina TITLE 'Pesquisar' ACTION 'PesqBrw'       OPERATION 1 ACCESS 0
-    ADD OPTION aRotina TITLE 'Visualizar'   ACTION 'VIEWDEF.Zs1Semana' OPERATION 2 ACCESS 0
+    //ADD OPTION aRotina TITLE 'Pesquisar' ACTION 'PesqBrw'       OPERATION 1 ACCESS 0
+    ADD OPTION aRotina TITLE 'Visualizar'   ACTION 'VIEWDEF.Zs1Semana' OPERATION 1 ACCESS 0
     ADD OPTION aRotina TITLE 'Incluir'      ACTION 'VIEWDEF.Zs1Semana' OPERATION 3 ACCESS 0
     ADD OPTION aRotina TITLE 'Alterar'      ACTION 'VIEWDEF.Zs1Semana' OPERATION 4 ACCESS 0
     ADD OPTION aRotina TITLE 'Excluir'      ACTION 'VIEWDEF.Zs1Semana' OPERATION 5 ACCESS 0
@@ -83,6 +86,8 @@ Static Function ModelDef()
     oModel:SetDescription('Modelo de dados Cadastros Semanais')
 
     oModel:GetModel('ZS1MASTER'):SetDescription('Dados Semanais')
+
+    oModel:SetPrimaryKey({'ZS1_FILIAL', 'ZS1_COD', 'ZS1_ANO'})
 
     //oModel:SetVldActivate( {|oModel| MOD1ACT( oModel )} )
     
