@@ -4,54 +4,12 @@
 		{
 			"type": "totvs_language_debug",
 			"request": "launch",
-			"name": "Smart Client Debug",
+			"name": "TOTVS Language Debug",
 			"program": "${command:AskForProgramName}",
-			"smartclientBin": "C:\\TOTVS_12133\\Protheus\\bin\\smartclient\\smartclient.exe",
 			"cwb": "${workspaceFolder}",
+			"smartclientBin": "../totvs/bin/smartclient/smartclient.exe",
 			"isMultiSession": true,
 			"enableTableSync": true
 		}
-	],
-	"lastPrograms": [
-		{
-			"label": "SIGAMDI"
-		},
-		{
-			"args": [],
-			"label": "zCalTri"
-		},
-		{
-			"args": [],
-			"label": "zDuasLinhas"
-		},
-		{
-			"args": [],
-			"label": "u_zDuasLinhas"
-		},
-		{
-			"args": [],
-			"label": "zTcQuery"
-		},
-		{
-			"args": [],
-			"label": "U_zTcQuery"
-		},
-		{
-			"args": [],
-			"label": "u_zFwPreparedStatement"
-		},
-		{
-			"args": [],
-			"label": "u_zMedia"
-		},
-		{
-			"args": [],
-			"label": "u_zArray"
-		},
-		{
-			"args": [],
-			"label": "u_zBlocoCod"
-		}
-	],
-	"lastProgramExecuted": "SIGAMDI"
+	]
 }
