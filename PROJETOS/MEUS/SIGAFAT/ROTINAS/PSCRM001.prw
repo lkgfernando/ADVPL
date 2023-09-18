@@ -2,7 +2,6 @@
 #Include "TopConn.ch"
 
 
-
 /*/{Protheus.doc} User Function PsCrm001
     Função que verifica grupo de cliente pelo CNPJ, para manter o mesmo código.
     @type  Function
