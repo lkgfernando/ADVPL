@@ -14,7 +14,7 @@ Static cAliasMVC := "ZD1"
   @since 24/11/2022
   /*/
 
-User Function zMVC01()
+User Function zMVC07()
   Local aArea := GetArea()
   Local oBrowse
   Private aRotina := {}
@@ -42,10 +42,10 @@ Return Nil
 Static Function MenuDef()
   Local aRotina := {}
 
-  ADD OPTION aRotina TITLE "Visualizar" ACTION "VIEWDEF.zMVC01" OPERATION 1 ACCESS 0
-  ADD OPTION aRotina TITLE "Incluir" ACTION "VIEWDEF.zMVC01" OPERATION 3 ACCESS 0
-  ADD OPTION aRotina TITLE "Alterar" ACTION "VIEWDEF.zMVC01" OPERATION 4 ACCESS 0
-  ADD OPTION aRotina TITLE "Excluir" ACTION "VIEWDEF.zMVC01" OPERATION 5 ACCESS 0
+  ADD OPTION aRotina TITLE "Visualizar" ACTION "VIEWDEF.zMVC07" OPERATION 1 ACCESS 0
+  ADD OPTION aRotina TITLE "Incluir" ACTION "VIEWDEF.zMVC07" OPERATION 3 ACCESS 0
+  ADD OPTION aRotina TITLE "Alterar" ACTION "VIEWDEF.zMVC07" OPERATION 4 ACCESS 0
+  ADD OPTION aRotina TITLE "Excluir" ACTION "VIEWDEF.zMVC07" OPERATION 5 ACCESS 0
 
 Return aRotina
 
@@ -63,19 +63,13 @@ Static Function ModelDef()
   Local bCommit := Nil
   Local bCancel := Nil
 
-  oModel := MPFormModel():New("zMVC01M", bPre, bPos, bCommit, bCancel)
+  oModel := MPFormModel():New("zMVC07M", bPre, bPos, bCommit, bCancel)
   oModel:AddFields("ZD1MASTER", /*cOwner*/, oStruct)
   oModel:SetDescription("Modelo de dados - " + cTitulo)
   oModel:GetModel("ZD1MASTER"):SetDescription("Dados de - " + cTitulo)
   oModel:SetPrimaryKey({})
 
 Return oModel
-
-
-
-User Function z01Model()
-  
-Return ModelDef()
 
 /*/{Protheus.doc} ViewDef
   (long_description)
@@ -84,7 +78,7 @@ Return ModelDef()
   @since 24/11/2022
 /*/
 Static Function ViewDef()
-  Local oModel := FWLoadModel("zMVC01")
+  Local oModel := FWLoadModel("zMVC07")
   Local oStruct := FWFormStruct(2, cAliasMVC)
   Local oView
 
@@ -94,5 +88,9 @@ oView:AddField("VIEW_ZD1", oStruct, "ZD1MASTER")
 oView:CreateHorizontalBox("TELA", 100)
 oView:SetOwnerView("VIEW_ZD1", "TELA")
 
+// Adicionado botões no outra ações da ViewDef
+// Parâmetros do médoto addUserButton (<<cTitle>>, <cResource>, <bBloco>, [cToolTip], [nShortCut], [aOptions], [lShowBar])
+oView:addUserbutton("Mensagem", "MAGIC_BMP", {|| Alert("Apenas uma mensagem de teste")}, , , , .T.)
+oView:addUserButton("Imprimir", "MAGIC_BMP", {|| Alert("Em construção")               }, , , , .F.)
 
 Return oView
