@@ -14,7 +14,7 @@
 /*/
 User Function zExe001()
 	Local aArea := FWGetArea()
-
+	Local cLetra := "F"
 
 	FWRestArea(aArea)
 Return
