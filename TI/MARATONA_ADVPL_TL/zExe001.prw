@@ -20,7 +20,7 @@ User Function zExe001()
 
 	If cLetra $ cNome
 
-		FWAlertInfo("A letra está contida no nome", "Teste 1")
+		Alert("TESTE","TESTE")
 
 	EndIf
 
