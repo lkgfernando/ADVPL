@@ -1,4 +1,5 @@
-#Include "Totvs.ch"
+#Include "Protheus.ch"
+#Include "tlpp-core.th"
 
 /*/{Protheus.doc} zExe001
 (long_description)
@@ -15,6 +16,19 @@
 User Function zExe001()
 	Local aArea := FWGetArea()
 	Local cLetra := "F"
+	Local cNome := "FERNANDO"
+
+	If cLetra $ cNome
+
+		FWAlertInfo("A letra está contida no nome", "Teste 1")
+
+	EndIf
+
+	If Upper(cLetra) $ (cNome)
+
+		FWAlertInfo("A letra está contida nome variáveis tudo maiúsculas", "Teste 1")
+
+	EndIf
 
 	FWRestArea(aArea)
 Return
