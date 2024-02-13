@@ -1,5 +1,5 @@
 #Include "Protheus.ch"
-#Include "tlpp-core.th"
+
 
 /*/{Protheus.doc} zExe001
 (long_description)
@@ -20,7 +20,7 @@ User Function zExe001()
 
 	If cLetra $ cNome
 
-		Alert("TESTE","TESTE")
+		FWAlertInfo("TESTE","TESTE")
 
 	EndIf
 
