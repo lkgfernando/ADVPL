@@ -25,6 +25,9 @@
 	"lastPrograms": [
 		{
 			"label": "SIGAMDI"
+		},
+		{
+			"label": "VTDEBUG"
 		}
 	],
 	"lastProgramExecuted": "SIGAMDI"
