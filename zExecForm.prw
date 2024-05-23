@@ -59,7 +59,7 @@ Static Function fExecuta()
 
     If ! Empty(cFormula)
         Begin Sequence
-            &("u_"+cformula)
+            &(cformula)
         End Sequence
 
         ErrorBlock(bError)
