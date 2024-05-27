@@ -25,6 +25,12 @@ User Function MOVDEP1()
   aRotina         := MenuDef()
 
   oBrowse := FwMBrowse():New()
+
+  oBrowse:AddLegend("ZZ4->ZZ4_STATUS == 'A'", "GREEN", "Aberto")
+  oBrowse:AddLegend("ZZ4->ZZ4_STATUS == 'E'", "RED", "Efetivado")
+  oBrowse:AddLegend("ZZ4->ZZ4_STATUS == 'P'", "YELLOW", "Pago")
+  oBrowse:AddLegend("ZZ4->ZZ4_STATUS == 'C'", "CANCEL", "Cancelado")
+
   oBrowse:SetAlias(cAliasPai)
   oBrowse:SetDescription(cTitulo)
   oBrowse:DisableDetails()
@@ -81,11 +87,13 @@ Static Function ModelDef()
   oModel:SetDescription("Modelo de dados - " + cTitulo)
   oModel:GetModel("ZZ4MASTER"):SetDescription("Dados de - " + cTitulo)
   oModel:GetModel("ZZ5DETAIL"):SetDescription("Grid de - " + cTitulo)
-  oModel:SetPrimaryKey({})
+  oModel:SetPrimaryKey({'ZZ4_FILIAL','ZZ4_COD'})
   //Relacionamento
   aAdd(aRelation, {"ZZ5_FILIAL", "FWxFilial('ZZ5')"})
   aAdd(aRelation, {"ZZ5_CODZZ4", "ZZ4_COD"})
   oModel:SetRelation("ZZ5DETAIL", aRelation, ZZ5->(IndexKey(1)))
+
+  oModel:GetModel('ZZ5DETAIL'):SetUniqueLine({'ZZ5_CODDES'})
 
 Return oModel
 
