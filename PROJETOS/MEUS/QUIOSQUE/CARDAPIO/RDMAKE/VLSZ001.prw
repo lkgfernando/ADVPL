@@ -3,10 +3,10 @@
 
 
 Static cTitulo  := "Grupo de Produtos Cardapio"
-Static cAlias   := "SZ1"
+Static cAlias   := "Z02"
 
 
-/*/{Protheus.doc} User Function VLSZ101
+/*/{Protheus.doc} User Function VLSZ001
     (long_description)
     @type  Function
     @author Fernando Rodrigues
@@ -18,7 +18,7 @@ Static cAlias   := "SZ1"
     (examples)
     @see (links_or_references)
     /*/
-User Function VLSZ101()
+User Function VLSZ001()
     Local aArea := FWGetArea()
     Local oBrowse
     Private aRotina := {}
@@ -52,10 +52,10 @@ Return
 Static Function MenuDef()
     Local aRotina := {}
 
-    ADD OPTION aRotina TITLE "Visualizar" ACTION "VIEWDEF.VLSZ101" OPERATION 1 ACCESS 0
-    ADD OPTION aRotina TITLE "Incluir" ACTION "VIEWDEF.VLSZ101" OPERATION 3 ACCESS 0
-    ADD OPTION aRotina TITLE "Alterar" ACTION "VIEWDEF.VLSZ101" OPERATION 4 ACCESS 0
-    ADD OPTION aRotina TITLE "Excluir" ACTION "VIEWDEF.VLSZ101" OPERATION 5 ACCESS 0
+    ADD OPTION aRotina TITLE "Visualizar" ACTION "VIEWDEF.VLSZ001" OPERATION 1 ACCESS 0
+    ADD OPTION aRotina TITLE "Incluir" ACTION "VIEWDEF.VLSZ001" OPERATION 3 ACCESS 0
+    ADD OPTION aRotina TITLE "Alterar" ACTION "VIEWDEF.VLSZ001" OPERATION 4 ACCESS 0
+    ADD OPTION aRotina TITLE "Excluir" ACTION "VIEWDEF.VLSZ001" OPERATION 5 ACCESS 0
 
 Return aRotina
 
@@ -80,11 +80,11 @@ Static Function ModelDef()
     Local bCancel := Nil
 
 
-    oModel := MPFormModel():New("VLSZ101M", bPre, bPos, bCommit, bCancel)
+    oModel := MPFormModel():New("VLSZ001M", bPre, bPos, bCommit, bCancel)
     oModel:AddFields("SZ1MASTER", /*cOwner*/, oStruct)
     oModel:SetDescription("Modelo de dados - " + cTitulo)
     oModel:GetModel("SZ1MASTER"):SetDescription("Dados de - " + cTitulo)
-    oModel:SetPrimaryKey({'Z1_FILIAL','Z1_CODGRP'})
+    oModel:SetPrimaryKey({'Z00_FILIAL','Z00_COD'})
 
 Return oModel
 
@@ -102,7 +102,7 @@ Return oModel
     @see (links_or_references)
 /*/
 Static Function ViewDef()
-    Local oModel := FWLoadModel("VLSZ101")
+    Local oModel := FWLoadModel("VLSZ001")
     Local oStruct := FWFormStruct(2, cAlias)
     Local oView
 
