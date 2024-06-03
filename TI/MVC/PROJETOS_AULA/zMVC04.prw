@@ -9,7 +9,7 @@ Static cCamposChv := "ZD4_ANO"
 
 
 /*/{Protheus.doc} User Function zMVC04
-    (long_description)
+    Exemplo de Browse Modelo 2
     @type  Function
     @author Fernando Rodrigues
     @since 06/12/2022

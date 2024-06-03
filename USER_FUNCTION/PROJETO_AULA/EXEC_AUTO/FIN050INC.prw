@@ -24,21 +24,23 @@ If FwAlertYesNo("Deseja realmente efetivar a movimentação?", "Efetivação Movimen
                 { "E2_VENCTO"   , dDataBase + 30    , NIL },;
                 { "E2_VALOR"    , ZZ4->ZZ4_TOTAL    , NIL } }
     
-    MsExecAuto( { |x,y,z| FINA050(x,y,z)}, aArray,, 3)  // 3 - Inclusao, 4 - Alteração, 5 - Exclusão
-    If lMsErroAuto
-    MostraErro()
-Else
-    RecLock("ZZ4", .F.)
-      ZZ4->ZZ4_STATUS := "E"
-    ZZ4->(MsUnLock())
-    FwAlertInfo("Título incluído com sucesso!")
-Endif
+        MsExecAuto( { |x,y,z| FINA050(x,y,z)}, aArray,, 3)  // 3 - Inclusao, 4 - Alteração, 5 - Exclusão
+        If lMsErroAuto
+          MostraErro()
+        Else
+          RecLock("ZZ4", .F.)
+            ZZ4->ZZ4_STATUS := "E"
+          ZZ4->(MsUnLock())
+          FwAlertInfo("Título incluído com sucesso!")
+        EndIf
+        
+    EndIf
 
   Else
     FwAlertInfo("Efetivação permitida apenas para movimentos abertos!", "Atenção")
   EndIf
 
-EndIf
+
 
  
 Return
