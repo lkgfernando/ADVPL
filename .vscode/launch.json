@@ -9,7 +9,7 @@
 			"isMultiSession": true,
 			"cwb": "${workspaceFolder}",
 			"enableTableSync": true,
-			"smartclientUrl": "http://localhost:4321"
+			"smartclientUrl": "http://localhost:8089"
 		}
 	],
 	"lastPrograms": [
