@@ -9,5 +9,6 @@
 @see (links_or_references)
 /*/
 User Function lp001()
-  
+  Help(Nil, Nil, "Aviso", Nil, "Inicio do teste", 1, 0)
+  Help(Nil, Nil, "Aviso", Nil, "Fim do teste",    1, 0)
 Return
