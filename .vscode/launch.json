@@ -15,8 +15,14 @@
 	"lastPrograms": [
 		{
 			"label": "SIGAMDI"
+		},
+		{
+			"label": "u_xCorrecao"
+		},
+		{
+			"label": "u_xChaFun"
 		}
 	],
-	"lastProgramExecuted": "SIGAMDI",
+	"lastProgramExecuted": "u_xChaFun",
 	"lastProgramArguments": []
 }
