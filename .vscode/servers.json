@@ -6,30 +6,7 @@
 	"permissions": {
 		"authorizationtoken": ""
 	},
-	"connectedServer": {
-		"id": "qzvnn5d8kom7uyqagdwiklkg3gb7e",
-		"type": "totvs_server_protheus",
-		"name": "Desenv",
-		"port": 1235,
-		"address": "localhost",
-		"buildVersion": "7.00.240223P",
-		"secure": false,
-		"includes": [
-			"C:\\TOTVS12\\Protheus\\include"
-		],
-		"environments": [
-			"DESENV"
-		],
-		"username": "Admin",
-		"environment": "DESENV",
-		"token": "djM6cXp2bm41ZDhrb203dXlxYWdkd2lrbGtnM2diN2U6MTpsb2NhbGhvc3Q6MTIzNTowOjcuMDAuMjQwMjIzUDoz:djE6REVTRU5WOkFkbWluOlh1b1JuVi9yeGoxeVlrNTNJcnhBR1ZCU3BTM05yd2wvSitLaEJTWWFxYzQ9|djI6MTc1MDYyMjMxMzowOjE6MQ==.oyc9PG0Y5/Gd7CSGbcPG+3PlPXxGMd5AiuIkHX9WoYZ6EUwsC8LjW/Lk4XMHmj+8M89xdDEUoT2TxUj3YdZW4bPaI8b1ZUBhnDKBoaNzMmkd029L5YuIaWMiBHXF7PkODI5QpqAPht5LbwK9uVPlxfu+cfgwqOXTdOH1rP932phQzIHwOi6nHM6yBMun/VqKufnfU/WdPbWfr4bSsvzyB3U5oP2HLG87AgJLEA3vfr42x2F/WOY285sq7bBqqTBkTBJ0mf3quBkAVc2ODmr1R90qB/QLDUBFKLp8W2tUVBWExrkgyG2Xz9kQQs3cuER18KKZEHVHRvfrSFghLm1Nrg==",
-		"informations": {
-			"permissions": [],
-			"errorMessage": "",
-			"environmentDetectedType": "totvs_server_protheus",
-			"serverDetectedType": "totvs_server_protheus"
-		}
-	},
+	"connectedServer": {},
 	"configurations": [
 		{
 			"id": "qzvnn5d8kom7uyqagdwiklkg3gb7e",
@@ -47,7 +24,7 @@
 			],
 			"username": "Admin",
 			"environment": "DESENV",
-			"token": "djM6cXp2bm41ZDhrb203dXlxYWdkd2lrbGtnM2diN2U6MTpsb2NhbGhvc3Q6MTIzNTowOjcuMDAuMjQwMjIzUDoz:djE6REVTRU5WOkFkbWluOlh1b1JuVi9yeGoxeVlrNTNJcnhBR1ZCU3BTM05yd2wvSitLaEJTWWFxYzQ9|djI6MTc1MDYyMjMxMzowOjE6MQ==.oyc9PG0Y5/Gd7CSGbcPG+3PlPXxGMd5AiuIkHX9WoYZ6EUwsC8LjW/Lk4XMHmj+8M89xdDEUoT2TxUj3YdZW4bPaI8b1ZUBhnDKBoaNzMmkd029L5YuIaWMiBHXF7PkODI5QpqAPht5LbwK9uVPlxfu+cfgwqOXTdOH1rP932phQzIHwOi6nHM6yBMun/VqKufnfU/WdPbWfr4bSsvzyB3U5oP2HLG87AgJLEA3vfr42x2F/WOY285sq7bBqqTBkTBJ0mf3quBkAVc2ODmr1R90qB/QLDUBFKLp8W2tUVBWExrkgyG2Xz9kQQs3cuER18KKZEHVHRvfrSFghLm1Nrg==",
+			"token": "djM6cXp2bm41ZDhrb203dXlxYWdkd2lrbGtnM2diN2U6MTpsb2NhbGhvc3Q6MTIzNTowOjcuMDAuMjQwMjIzUDoz:djE6REVTRU5WOkFkbWluOjBPSU1iY0lPZ3RGNU5QM2R5SlBrL2UvWi9XcVpiUHU4KzlWZTBhMElRM2s9|djI6MTc3NTM5Mjk4ODowOjE6MQ==.LUBWKmejwjl38Jr3FzeHohemQ9bPFeE9bu2Y0O7cd64TUFdK6Wh7A4ktam1waX4f1C5U9WW0bHx9ZtPhJz3HQUWMWkEX4A5N27Q62Cu/UrKamGuvgvoMJKSPJzwBOszWsKPIxeUjZwQ3mPtBWIhdTdp9gVIp68AtjmRY7pjFjJ8NFLNZ7fYuuCwM6yfWWEr+0HFtOHlaqH5ep2ip1k12uUCT/D1YIbif8054pweAFVFn//4+arNqamWHt0t/FbUnvXJSKMnI0wWTeK53AWGYvd1IYW4I7VoTmGvqX2rJfWX/878ycnnwVI29pBnnnAPTEMktHRGobH0fLob/khq7aw==",
 			"informations": {
 				"permissions": [],
 				"errorMessage": "",
@@ -61,7 +38,7 @@
 			"qzvnn5d8kom7uyqagdwiklkg3gb7e:DESENV",
 			{
 				"id": "qzvnn5d8kom7uyqagdwiklkg3gb7e",
-				"token": "djM6cXp2bm41ZDhrb203dXlxYWdkd2lrbGtnM2diN2U6MTpsb2NhbGhvc3Q6MTIzNTowOjcuMDAuMjQwMjIzUDoz:djE6REVTRU5WOkFkbWluOlh1b1JuVi9yeGoxeVlrNTNJcnhBR1ZCU3BTM05yd2wvSitLaEJTWWFxYzQ9|djI6MTc1MDYyMjMxMzowOjE6MQ==.oyc9PG0Y5/Gd7CSGbcPG+3PlPXxGMd5AiuIkHX9WoYZ6EUwsC8LjW/Lk4XMHmj+8M89xdDEUoT2TxUj3YdZW4bPaI8b1ZUBhnDKBoaNzMmkd029L5YuIaWMiBHXF7PkODI5QpqAPht5LbwK9uVPlxfu+cfgwqOXTdOH1rP932phQzIHwOi6nHM6yBMun/VqKufnfU/WdPbWfr4bSsvzyB3U5oP2HLG87AgJLEA3vfr42x2F/WOY285sq7bBqqTBkTBJ0mf3quBkAVc2ODmr1R90qB/QLDUBFKLp8W2tUVBWExrkgyG2Xz9kQQs3cuER18KKZEHVHRvfrSFghLm1Nrg=="
+				"token": "djM6cXp2bm41ZDhrb203dXlxYWdkd2lrbGtnM2diN2U6MTpsb2NhbGhvc3Q6MTIzNTowOjcuMDAuMjQwMjIzUDoz:djE6REVTRU5WOkFkbWluOjBPSU1iY0lPZ3RGNU5QM2R5SlBrL2UvWi9XcVpiUHU4KzlWZTBhMElRM2s9|djI6MTc3NTM5Mjk4ODowOjE6MQ==.LUBWKmejwjl38Jr3FzeHohemQ9bPFeE9bu2Y0O7cd64TUFdK6Wh7A4ktam1waX4f1C5U9WW0bHx9ZtPhJz3HQUWMWkEX4A5N27Q62Cu/UrKamGuvgvoMJKSPJzwBOszWsKPIxeUjZwQ3mPtBWIhdTdp9gVIp68AtjmRY7pjFjJ8NFLNZ7fYuuCwM6yfWWEr+0HFtOHlaqH5ep2ip1k12uUCT/D1YIbif8054pweAFVFn//4+arNqamWHt0t/FbUnvXJSKMnI0wWTeK53AWGYvd1IYW4I7VoTmGvqX2rJfWX/878ycnnwVI29pBnnnAPTEMktHRGobH0fLob/khq7aw=="
 			}
 		]
 	],

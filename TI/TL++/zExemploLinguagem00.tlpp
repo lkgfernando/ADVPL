@@ -1,0 +1,32 @@
+#Define CarriageReturnLineFeed  chr(13) + chr(10)
+
+
+
+/*/{Protheus.doc} zExemploLinguagem00
+(long_description)
+@type user function
+@author Fernando Rodrigues
+@since 05/04/2026
+/*/
+Function U_zExemploLinguagem00()
+    Local lWorked := .F. as Logical
+    Local cReturn := "" as Character
+    Local cMessageLog := "" as Character
+    Local cMessage := {} as Array
+    Local nPositionCurrent := 0 as Numeric
+
+
+    lWorked := tlpp.environment.getIncludesTLPP(@cReturn, @cMessage)
+    If ! lWorked
+        cMessageLog := "Erro ao obter os includes do TLPP." + cReturn + CarriageReturnLineFeed
+
+        For nPositionCurrent := 1 To Len(cMessage)
+            cMessageLog += "[" + StrZero(nPositionCurrent, 5) + "] " + cValToChar(cMessage[nPositionCurrent]) + CarriageReturnLineFeed
+        Next
+    Else
+        cMessageLog := "Includes do TLPP obtidos com sucesso."+ cReturn + CarriageReturnLineFeed
+    EndIf
+
+    ShowLog(cMessageLog)
+    
+Return 

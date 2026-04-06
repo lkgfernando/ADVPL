@@ -1,0 +1,27 @@
+#Include "tlpp-core.th"
+
+Namespace longName
+
+/*/{Protheus.doc} zExemploLinguagem02
+(long_description)
+@type user function
+@author Fernando Rodrigues
+@since 05/04/2026
+@example
+    longName.U_zExemploLinguagem02()
+
+/*/
+Function U_zExemploLinguagem02()
+    Local aAreaBackup                   :=  fwGetArea() as Array
+    Local cEmployeeName                 := "Fernando José" as Character
+    Local cEmployeeLansName             := "Rodrigues" as Character
+    Local cEmployeeAge                  := 41 as Numeric
+    Local cMessageWhichWillBeDisplayed  := "" as Character
+
+
+    cMessageWhichWillBeDisplayed := ("O nome do funcionário é " + cEmployeeName + " e seu sobrenome é " + ; 
+                                     cEmployeeLansName + "! Ele tem " + cValToChar(cEmployeeAge) + " anos.")
+    fwAlertInfo(cMessageWhichWillBeDisplayed, "Atenção!")
+
+    fwRestArea(aAreaBackup)
+Return
