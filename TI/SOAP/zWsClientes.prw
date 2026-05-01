@@ -45,7 +45,6 @@ WsMethod ViewCli WsReceive cViewRece WsSend cViewSend WsService zWSClientes
         nIndice := 1 // A1_FILIAL+A1_COD
     EndIf
 
-    RpcSetEnv("99","01")
 
     DBSelectArea("SA1")
     SA1->(dbSetOrder(nIndice))
@@ -75,8 +74,6 @@ WsMethod ViewCli WsReceive cViewRece WsSend cViewSend WsService zWSClientes
     EndIf
 
     SA1->(dbCloseArea())
-
-    RpcClearEnv()
 
     fwRestArea(aArea)
 
