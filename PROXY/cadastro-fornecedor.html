@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cadastro de Fornecedor — zWSFornecedores</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #F4F2ED; --surface: #FFFFFF; --border: #D0CEC6; --border-dark: #A8A59E;
+      --text: #1A1916; --text-muted: #6B6860; --accent: #1A3A5C; --accent-mid: #378ADD;
+      --success: #3B6D11; --success-bg: #EAF3DE; --error: #A32D2D; --error-bg: #FCEBEB;
+      --warning: #854F0B; --warning-bg: #FAEEDA; --radius: 4px; --radius-lg: 8px;
+    }
+    body { font-family:'IBM Plex Sans',sans-serif; background:var(--bg); color:var(--text); min-height:100vh; }
+
+    header { background:var(--accent); padding:0 2rem; height:56px; display:flex; align-items:center; justify-content:space-between; }
+    header .brand { display:flex; align-items:center; gap:10px; }
+    header .logo-mark { width:28px; height:28px; background:#378ADD; border-radius:4px; display:flex; align-items:center; justify-content:center; }
+    header .logo-mark span { color:#fff; font-family:'IBM Plex Mono',monospace; font-size:11px; font-weight:500; }
+    header h1 { color:#fff; font-size:14px; font-weight:400; letter-spacing:.02em; }
+    header .env-badge { font-family:'IBM Plex Mono',monospace; font-size:11px; color:#B5D4F4; background:rgba(255,255,255,.08); padding:3px 10px; border-radius:3px; border:1px solid rgba(255,255,255,.12); }
+
+    .page { max-width:960px; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+    .page-title { margin-bottom:2rem; }
+    .page-title h2 { font-size:22px; font-weight:600; margin-bottom:4px; }
+    .page-title p  { font-size:13px; color:var(--text-muted); }
+    .page-title p span { font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--accent-mid); }
+
+    .proxy-strip { background:var(--warning-bg); border:1px solid #FAC775; border-radius:var(--radius-lg); padding:14px 18px; margin-bottom:1.5rem; display:flex; gap:12px; align-items:flex-start; }
+    .proxy-strip .icon { font-size:16px; margin-top:1px; flex-shrink:0; }
+    .proxy-strip > div { flex:1; }
+    .proxy-strip strong { font-size:13px; font-weight:600; color:var(--warning); display:block; margin-bottom:6px; }
+    .proxy-strip .proxy-row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .proxy-strip input { height:32px; border:1px solid #FAC775; background:#fff; border-radius:var(--radius); padding:0 10px; font-size:12px; font-family:'IBM Plex Mono',monospace; color:var(--text); }
+    .proxy-strip .hint-text { font-size:11px; color:var(--warning); margin-top:6px; display:block; }
+    .proxy-strip button { height:32px; padding:0 14px; background:var(--warning); color:#fff; border:none; border-radius:var(--radius); font-size:12px; cursor:pointer; white-space:nowrap; }
+
+    .card { background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); overflow:hidden; margin-bottom:1.5rem; }
+    .card-header { padding:14px 20px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; }
+    .card-header .dot { width:8px; height:8px; border-radius:50%; background:var(--accent-mid); flex-shrink:0; }
+    .card-header h3 { font-size:13px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--text-muted); }
+    .card-body { padding:20px; }
+
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+    .col-2  { grid-column:span 2; }
+    .col-3  { grid-column:span 3; }
+    @media(max-width:640px){ .grid-2,.grid-3{grid-template-columns:1fr;} .col-2,.col-3{grid-column:span 1;} }
+
+    .field { display:flex; flex-direction:column; gap:5px; }
+    .field label { font-size:11px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--text-muted); }
+    .field label .req { color:var(--error); margin-left:2px; }
+    .field input, .field select { height:36px; border:1px solid var(--border); border-radius:var(--radius); padding:0 10px; font-size:14px; font-family:'IBM Plex Sans',sans-serif; color:var(--text); background:#fff; transition:border-color .15s; outline:none; }
+    .field input:focus, .field select:focus { border-color:var(--accent-mid); box-shadow:0 0 0 3px rgba(55,138,221,.12); }
+    .field .hint { font-size:11px; color:var(--text-muted); font-style:italic; }
+    .field .emsg { font-size:11px; color:var(--error); display:none; }
+    .field.err .emsg { display:block; }
+    .field.err input, .field.err select { border-color:var(--error); }
+
+    .cod-row { display:flex; gap:8px; align-items:center; }
+    .cod-row input { flex:1; font-family:'IBM Plex Mono',monospace; letter-spacing:.06em; }
+    #cod-badge { font-family:'IBM Plex Mono',monospace; font-size:11px; background:var(--accent-mid); color:#fff; padding:3px 8px; border-radius:3px; white-space:nowrap; transition:background .2s; }
+
+    .actions { display:flex; justify-content:flex-end; gap:10px; padding:16px 20px; background:#F9F8F5; border-top:1px solid var(--border); }
+    .btn { height:38px; padding:0 20px; border-radius:var(--radius); font-size:14px; font-family:'IBM Plex Sans',sans-serif; font-weight:500; cursor:pointer; border:none; display:flex; align-items:center; gap:7px; transition:opacity .15s; }
+    .btn:disabled { opacity:.5; cursor:not-allowed; }
+    .btn-secondary { background:transparent; border:1px solid var(--border-dark); color:var(--text); }
+    .btn-secondary:hover:not(:disabled) { background:var(--bg); }
+    .btn-primary { background:var(--accent); color:#fff; }
+    .btn-primary:hover:not(:disabled) { opacity:.88; }
+    .spinner { width:14px; height:14px; border:2px solid rgba(255,255,255,.3); border-top-color:#fff; border-radius:50%; animation:spin .7s linear infinite; display:none; }
+    .btn-primary.loading .spinner { display:block; }
+    .btn-primary.loading .btn-label { opacity:.7; }
+    @keyframes spin { to{transform:rotate(360deg);} }
+
+    .preview-toggle { font-size:12px; color:var(--accent-mid); background:none; border:none; cursor:pointer; text-decoration:underline; padding:0; margin-top:8px; }
+    #soap-preview { display:none; margin-top:10px; background:#0D1B2A; border-radius:var(--radius); padding:14px; font-family:'IBM Plex Mono',monospace; font-size:12px; color:#B5D4F4; white-space:pre; overflow-x:auto; max-height:280px; overflow-y:auto; }
+
+    #result-panel { display:none; border-radius:var(--radius-lg); border:1px solid var(--border); overflow:hidden; margin-top:1.5rem; }
+    .result-header { padding:12px 18px; display:flex; align-items:center; gap:10px; font-size:13px; font-weight:600; }
+    .result-header.ok  { background:var(--success-bg); color:var(--success); border-bottom:1px solid #C0DD97; }
+    .result-header.err { background:var(--error-bg);   color:var(--error);   border-bottom:1px solid #F7C1C1; }
+    #result-body { padding:14px 18px; font-family:'IBM Plex Mono',monospace; font-size:12px; background:#FAFAF8; white-space:pre-wrap; word-break:break-all; max-height:280px; overflow-y:auto; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <div class="logo-mark"><span>P</span></div>
+    <h1>Integração Protheus — zWSFornecedores · NewFornecedor</h1>
+  </div>
+  <span class="env-badge">SA2 · Fornecedores</span>
+</header>
+
+<div class="page">
+
+  <div class="page-title">
+    <h2>Cadastro de Fornecedor</h2>
+    <p>Envia JSON via SOAP para o método <span>NewFornecedor</span> do serviço <span>zWSFornecedores</span> · parâmetro <span>cNewRace</span></p>
+  </div>
+
+  <!-- Endpoint -->
+  <div class="proxy-strip">
+    <div class="icon">⚙</div>
+    <div>
+      <strong>Endpoint &amp; Credenciais</strong>
+      <div class="proxy-row">
+        <input type="text"     id="proxy-url"  placeholder="http://servidor:porta/ws/zWSFornecedores" style="flex:2;min-width:220px;" />
+        <input type="text"     id="proxy-user" placeholder="Usuário" style="flex:0.5;min-width:80px;" />
+        <input type="password" id="proxy-pass" placeholder="Senha"   style="flex:0.5;min-width:80px;" />
+        <button onclick="saveProxy()">Salvar</button>
+      </div>
+      <span class="hint-text">🔒 Credenciais salvas apenas no localStorage do navegador.</span>
+    </div>
+  </div>
+
+  <!-- Identificação -->
+  <div class="card">
+    <div class="card-header"><div class="dot"></div><h3>Identificação</h3></div>
+    <div class="card-body">
+      <div class="grid-3">
+
+        <div class="field" id="f-cod">
+          <label>Código <span class="req">*</span></label>
+          <div class="cod-row">
+            <input type="text" id="cod" maxlength="12" placeholder="000000000012" />
+            <span id="cod-badge">AUTO</span>
+          </div>
+          <span class="emsg">Campo obrigatório</span>
+          <span class="hint">12 caracteres — gerado automaticamente</span>
+        </div>
+
+        <div class="field" id="f-loja">
+          <label>Loja <span class="req">*</span></label>
+          <input type="text" id="loja" maxlength="2" placeholder="01" value="01" />
+          <span class="emsg">Campo obrigatório</span>
+        </div>
+
+        <div class="field" id="f-tipo">
+          <label>Tipo <span class="req">*</span></label>
+          <select id="tipo">
+            <option value="J">J — Jurídica</option>
+            <option value="F">F — Física</option>
+            <option value="X">X — Exterior</option>
+          </select>
+        </div>
+
+        <div class="field col-2" id="f-razaoSocial">
+          <label>Razão Social <span class="req">*</span></label>
+          <input type="text" id="razaoSocial" maxlength="40" placeholder="Fornecedor LTDA" />
+          <span class="emsg">Campo obrigatório</span>
+        </div>
+
+        <div class="field" id="f-nomeFantasia">
+          <label>Nome Fantasia <span class="req">*</span></label>
+          <input type="text" id="nomeFantasia" maxlength="20" placeholder="Fornecedor" />
+          <span class="emsg">Campo obrigatório</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Fiscal -->
+  <div class="card">
+    <div class="card-header"><div class="dot"></div><h3>Documento Fiscal</h3></div>
+    <div class="card-body">
+      <div class="grid-2">
+        <div class="field" id="f-cnpj">
+          <label>CNPJ / CPF <span class="req">*</span></label>
+          <input type="text" id="cnpj" maxlength="14" placeholder="00000000000000" />
+          <span class="emsg">Campo obrigatório</span>
+          <span class="hint">Somente números</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Endereço -->
+  <div class="card">
+    <div class="card-header"><div class="dot"></div><h3>Endereço</h3></div>
+    <div class="card-body">
+      <div class="grid-3">
+
+        <div class="field col-2" id="f-end">
+          <label>Endereço <span class="req">*</span></label>
+          <input type="text" id="end" maxlength="40" placeholder="Rua Exemplo, 100" />
+          <span class="emsg">Campo obrigatório</span>
+        </div>
+
+        <div class="field" id="f-cep">
+          <label>CEP <span class="req">*</span></label>
+          <input type="text" id="cep" maxlength="8" placeholder="00000000" />
+          <span class="emsg">Campo obrigatório</span>
+          <span class="hint">Somente números</span>
+        </div>
+
+        <div class="field col-2" id="f-bairro">
+          <label>Bairro <span class="req">*</span></label>
+          <input type="text" id="bairro" maxlength="30" />
+          <span class="emsg">Campo obrigatório</span>
+        </div>
+
+        <div class="field col-2" id="f-cidade">
+          <label>Cidade <span class="req">*</span></label>
+          <input type="text" id="cidade" maxlength="30" />
+          <span class="emsg">Campo obrigatório</span>
+        </div>
+
+        <div class="field" id="f-estado">
+          <label>UF <span class="req">*</span></label>
+          <select id="estado">
+            <option value="">-- Selecione --</option>
+            <option>AC</option><option>AL</option><option>AM</option><option>AP</option>
+            <option>BA</option><option>CE</option><option>DF</option><option>ES</option>
+            <option>GO</option><option>MA</option><option>MG</option><option>MS</option>
+            <option>MT</option><option>PA</option><option>PB</option><option>PE</option>
+            <option>PI</option><option>PR</option><option>RJ</option><option>RN</option>
+            <option>RO</option><option>RR</option><option>RS</option><option>SC</option>
+            <option selected>SP</option><option>SE</option><option>TO</option>
+          </select>
+          <span class="emsg">Campo obrigatório</span>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Ações -->
+  <div class="card">
+    <div class="actions">
+      <button class="btn btn-secondary" onclick="limpar()">Limpar</button>
+      <button class="btn btn-secondary" onclick="togglePreview()">Ver SOAP</button>
+      <button class="btn btn-primary" id="btn-enviar" onclick="enviar()">
+        <span class="spinner"></span>
+        <span class="btn-label">Enviar ao Protheus</span>
+      </button>
+    </div>
+  </div>
+
+  <button class="preview-toggle" id="preview-btn" onclick="togglePreview()">▶ Mostrar envelope SOAP que será enviado</button>
+  <div id="soap-preview"></div>
+
+  <div id="result-panel">
+    <div class="result-header" id="result-header"></div>
+    <pre id="result-body"></pre>
+  </div>
+
+</div>
+
+<script>
+// ── Persistência ──────────────────────────────────────────────────────────────
+const LS = { get: k => localStorage.getItem(k)||'', set: (k,v) => localStorage.setItem(k,v) };
+document.getElementById('proxy-url').value  = LS.get('prot_url');
+document.getElementById('proxy-user').value = LS.get('prot_user');
+document.getElementById('proxy-pass').value = LS.get('prot_pass');
+
+function saveProxy() {
+  LS.set('prot_url',  document.getElementById('proxy-url').value.trim());
+  LS.set('prot_user', document.getElementById('proxy-user').value.trim());
+  LS.set('prot_pass', document.getElementById('proxy-pass').value);
+  alert('Configurações salvas!');
+}
+
+// ── Geração automática de código (12 chars, sequencial a partir de 000000000012) ──
+const COD_KEY = 'prot_last_cod';
+
+function getNextCod() {
+  const last = parseInt(LS.get(COD_KEY) || '11', 10);
+  return String(last + 1).padStart(12, '0');
+}
+
+function applyNextCod() {
+  const cod = getNextCod();
+  document.getElementById('cod').value = cod;
+  document.getElementById('cod-badge').textContent = 'AUTO #' + parseInt(cod, 10);
+  document.getElementById('cod-badge').style.background = '#378ADD';
+}
+
+applyNextCod(); // aplica ao carregar
+
+document.getElementById('cod').addEventListener('input', () => {
+  document.getElementById('cod-badge').textContent = 'MANUAL';
+  document.getElementById('cod-badge').style.background = '#888';
+});
+
+// ── Helpers ───────────────────────────────────────────────────────────────────
+const v = id => (document.getElementById(id).value || '').trim();
+
+function chk(id, fid) {
+  const ok = !!v(id);
+  document.getElementById(fid).classList.toggle('err', !ok);
+  return ok;
+}
+
+function limpar() {
+  ['razaoSocial','nomeFantasia','cnpj','end','cep','bairro','cidade'].forEach(id =>
+    document.getElementById(id).value = '');
+  document.getElementById('loja').value  = '01';
+  document.getElementById('tipo').value  = 'J';
+  document.getElementById('estado').value = 'SP';
+  applyNextCod();
+  document.getElementById('result-panel').style.display = 'none';
+  document.getElementById('soap-preview').style.display = 'none';
+  document.getElementById('preview-btn').textContent = '▶ Mostrar envelope SOAP que será enviado';
+}
+
+// ── JSON exatamente como o AdvPL espera via GetJsonObject() ───────────────────
+function buildJson() {
+  return JSON.stringify({
+    cod:          v('cod'),
+    loja:         v('loja'),
+    tipo:         v('tipo'),
+    razaoSocial:  v('razaoSocial'),
+    nomeFantasia: v('nomeFantasia'),
+    cnpj:         v('cnpj'),
+    end:          v('end'),
+    cep:          v('cep'),
+    bairro:       v('bairro'),
+    cidade:       v('cidade'),
+    estado:       v('estado')
+  });
+}
+
+// ── Envelope SOAP ─────────────────────────────────────────────────────────────
+// Nota: parâmetro é cNewRace (conforme WsData no fonte AdvPL)
+function buildSoap() {
+  const jsonEsc = buildJson()
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+                  xmlns:ns="http://127.0.0.1:8091/">
+  <soapenv:Header/>
+  <soapenv:Body>
+    <ns:NEWFORN>
+      <ns:CNEWRACE>${jsonEsc}</ns:CNEWRACE>
+    </ns:NEWFORN>
+  </soapenv:Body>
+</soapenv:Envelope>`;
+}
+
+// ── Preview ───────────────────────────────────────────────────────────────────
+function togglePreview() {
+  const el  = document.getElementById('soap-preview');
+  const btn = document.getElementById('preview-btn');
+  if (el.style.display === 'block') {
+    el.style.display = 'none';
+    btn.textContent  = '▶ Mostrar envelope SOAP que será enviado';
+  } else {
+    el.style.display = 'block';
+    btn.textContent  = '▼ Ocultar envelope SOAP';
+    el.textContent   = buildSoap();
+  }
+}
+
+// ── Validação (espelha o IF NEW002 do AdvPL) ─────────────────────────────────
+function validar() {
+  let ok = true;
+  ok = chk('cod',         'f-cod')         && ok;
+  ok = chk('loja',        'f-loja')        && ok;
+  ok = chk('tipo',        'f-tipo')        && ok;
+  ok = chk('razaoSocial', 'f-razaoSocial') && ok;
+  ok = chk('nomeFantasia','f-nomeFantasia') && ok;
+  ok = chk('cnpj',        'f-cnpj')        && ok;
+  ok = chk('end',         'f-end')         && ok;
+  ok = chk('cep',         'f-cep')         && ok;
+  ok = chk('bairro',      'f-bairro')      && ok;
+  ok = chk('cidade',      'f-cidade')      && ok;
+  ok = chk('estado',      'f-estado')      && ok;
+  return ok;
+}
+
+// ── Envio ─────────────────────────────────────────────────────────────────────
+async function enviar() {
+  if (!validar()) return;
+
+  const url  = document.getElementById('proxy-url').value.trim();
+  const user = document.getElementById('proxy-user').value.trim();
+  const pass = document.getElementById('proxy-pass').value;
+  if (!url) { alert('Informe a URL do endpoint ou proxy.'); return; }
+
+  const btn = document.getElementById('btn-enviar');
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  const headers = { 'Content-Type':'text/xml; charset=utf-8', 'SOAPAction':'NewForn' };
+  if (user || pass) headers['Authorization'] = 'Basic ' + btoa(user + ':' + pass);
+
+  try {
+    const resp = await fetch(url, { method:'POST', headers, body: buildSoap() });
+    const text = await resp.text();
+
+    // Extrai cNewSend da resposta SOAP e exibe o JSON formatado
+    let display = text;
+    const match = text.match(/<[^>]*cNewSend[^>]*>([\s\S]*?)<\/[^>]*cNewSend>/i);
+    if (match) {
+      try {
+        const parsed = JSON.parse(match[1]);
+        display = JSON.stringify(parsed, null, 2);
+        // Sucesso = sem errorId → incrementa contador e prepara próximo código
+        if (!parsed.errorId) {
+          LS.set(COD_KEY, parseInt(v('cod'), 10).toString());
+          setTimeout(applyNextCod, 400);
+        }
+      } catch { display = match[1]; }
+    }
+
+    const sucesso = resp.ok && !display.includes('"errorId"');
+    showResult(sucesso, display);
+  } catch (e) {
+    showResult(false,
+      `Erro de conexão:\n${e.message}\n\nVerifique:\n• URL correta?\n• Proxy rodando? (node proxy.js)\n• CORS liberado no appserver.ini?`);
+  } finally {
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  }
+}
+
+function showResult(ok, body) {
+  const panel  = document.getElementById('result-panel');
+  const header = document.getElementById('result-header');
+  const pre    = document.getElementById('result-body');
+  panel.style.display = 'block';
+  header.className    = 'result-header ' + (ok ? 'ok' : 'err');
+  header.textContent  = ok ? '✓  Registro incluído com sucesso' : '✕  Erro — veja o retorno abaixo';
+  pre.textContent     = body;
+  panel.scrollIntoView({ behavior:'smooth', block:'start' });
+}
+</script>
+</body>
+</html>
