@@ -7,7 +7,8 @@
 	"settings": {
 		"totvsLanguageServer.welcomePage": false,
 		"totvsLanguageServer.askCompileResult": false,
-		"totvsLanguageServer.workspaceServerConfig": true
+		"totvsLanguageServer.workspaceServerConfig": true,
+		"totvsLanguageServer.editor.linter.includes": "C:\\TOTVS12\\Protheus\\include"
 	},
 	"launch": {
 		"version": "0.2.0",
