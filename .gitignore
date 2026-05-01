@@ -1,2 +1,10 @@
+<<<<<<< HEAD
 .vscode/launch.json
 .vscode/servers.json
+=======
+.vscode/launch.json
+.vscode/servers.json
+.vscode/.advpl/_binary_class.prw
+.vscode/.advpl/_binary_functions.prw
+.vscode/servers.json
+>>>>>>> f567ce9aeb97fbb2dff3cea066ecd2f3e4bb162e
