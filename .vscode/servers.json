@@ -6,33 +6,7 @@
 	"permissions": {
 		"authorizationtoken": ""
 	},
-	"connectedServer": {
-		"id": "ckiy2089aptmoq3oyylm4sxwu8if9m",
-		"type": "totvs_server_protheus",
-		"name": "SERVER_LOCAL",
-		"port": 1235,
-		"address": "localhost",
-		"buildVersion": "7.00.240223P",
-		"secure": false,
-		"includes": [
-			"C:\\TOTVS12\\Protheus\\include",
-			"D:\\FONTES_GIT\\ADVPL\\INCLUDES"
-		],
-		"environments": [
-			"DESENV",
-			"AMB_SOAP",
-			"REST"
-		],
-		"username": "Admin",
-		"environment": "AMB_SOAP",
-		"token": "djM6Y2tpeTIwODlhcHRtb3Ezb3l5bG00c3h3dThpZjltOjE6bG9jYWxob3N0OjEyMzU6MDo3LjAwLjI0MDIyM1A6Mw==:djE6QU1CX1NPQVA6QWRtaW46Z3hqOEUwVWFyRC94ZVBENXJJc0FDQWRmZGdjMzlOME1yR0ViUURyNDh0ST0=|djI6MTc3NzgzMjg1MzowOjE6MQ==.SekvhCuo4qhWmvbrqceY/iWoCMgGvOAfiQIrDOGGvP+l/7lcFkDASjYTO1cBJrt0lJ4QndQxyV1hr5B4E0ijVGF+q8ban2PJZUc3EE3H5fKtX5nMoowvubISImvfdAITTDT0G13Euv7j7icsDh8Hh8LrdTw7f8V98Xpu6sX48cMj21KDhshK/Q3ouYW+kb13Anbv9jVIEsiF64lD82pYoqRvg1YMEtv2QKBirT1PClZH4JhP4gaZJLIr7wTQdGuIFjwN8/UuRwUb1nkd7Ediih8+WlNQHoQXkC8MmvU503ficE2PV9dZN30zlitvHQDJnj93w/K5rer0eDnDouhdrg==",
-		"informations": {
-			"permissions": [],
-			"errorMessage": "",
-			"environmentDetectedType": "totvs_server_protheus",
-			"serverDetectedType": "totvs_server_protheus"
-		}
-	},
+	"connectedServer": {},
 	"configurations": [
 		{
 			"id": "ckiy2089aptmoq3oyylm4sxwu8if9m",

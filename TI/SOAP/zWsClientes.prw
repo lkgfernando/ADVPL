@@ -9,11 +9,11 @@ WsService zWSClientes Description "Web service with client functions"
 
     WsData cViewRece as String
     WsData cViewSend as String
-    WsData cNewRace as String
+    WsData cNewRece as String
     WsData cNewSend as String
 
     WsMethod ViewCli        Description "View client data"
-    //WsMethod NewCli         Description "Create new client"
+    WsMethod NewCli         Description "Create new client"
 
 EndWsService
 
@@ -75,6 +75,85 @@ WsMethod ViewCli WsReceive cViewRece WsSend cViewSend WsService zWSClientes
 
     SA1->(dbCloseArea())
 
+    fwRestArea(aArea)
+
+Return lRet
+
+
+WsMethod NewCli WsReceive cNewRece WsSend cNewSend WsService zWSClientes
+    Local aArea     := fwGetArea()
+    Local lRet      := .T.
+    Local jJsonRece 
+    Local cError    := ""
+    Local jResponse := JsonObject():New()
+    Local cDirLog   := '\x_logs\'
+    Local nLinha    
+    Local aDados    := {}
+    Private lMsHelpAuto     := .T.
+    Private lAutoErrNofile  := .T.
+    Private lMsErroAuto     := .F.
+
+    jJsonRece := JsonObject():New()
+    cError    := jJsonRece:FromJson(::cNewRece)
+
+    If ! Empty(cError) .Or. Len(::cNewRece) < 20
+        jResponse['errorId'] := 'NEW001'
+        jResponse['error']   := 'Parse do Json'
+        jResponse['solution']:= 'Erro ao fazer o Parse do JSON'
+
+    Else
+
+        If Empty(jJsonRece:GetJsonObject('cnpj'))        .Or. ;
+            Empty(jJsonRece:GetJsonObject('nome'))      .Or. ;
+            Empty(jJsonRece:GetJsonObject('nReduz'))    .Or. ;
+            Empty(jJsonRece:GetJsonObject('tipo'))      .Or. ;
+            Empty(jJsonRece:GetJsonObject('end'))       .Or. ;
+            Empty(jJsonRece:GetJsonObject('mun'))       .Or. ;
+            Empty(jJsonRece:GetJsonObject('est'))
+
+
+            jResponse['errorId'] := 'NEW002'
+            jResponse['error']   := 'Campo(s) obrigarorio(s)'
+            jResponse['solution']:= 'Existem campos que não foram enviados, revise a estrutura do seu JSON'
+
+        Else
+            aAdd(aDados, {'A1_CGC'  ,jJsonRece:GetJsonObject('cnpj')     , Nil})
+            aAdd(aDados, {'A1_NOME' ,jJsonRece:GetJsonObject('nome')    , Nil})
+            aAdd(aDados, {'A1_NREUZ',jJsonRece:GetJsonObject('nReduz')  , Nil})
+            aAdd(aDados, {'A1_TIPO' ,jJsonRece:GetJsonObject('tipo')    , Nil})
+            aAdd(aDados, {'A1_END'  ,jJsonRece:GetJsonObject('end')     , Nil})
+            aAdd(aDados, {'A1_MUN'  ,jJsonRece:GetJsonObject('mun')     , Nil}) 
+            aAdd(aDados, {'A1_EST'  ,jJsonRece:GetJsonObject('est')     , Nil})
+
+            MsExecAuto({|x,y| CRMA980(x,y)}, aDados, 3)
+
+            If lMsErroAuto
+
+                cErrorLog := ''
+                aLogAuto  := GetAutGrLog()
+                For nLinha := 1 To Len(aLogAuto)
+                    cErrorLog += aLogAuto[nLinha] + CRLF
+                Next nLinha
+
+                cArqLog := 'zWSCliente_New_' + dToS(Date()) + '_' + StrTran(Time(), ':', '-') + '.log'
+                MemoWrite(cDirLog + cArqLog, cErrorLog)
+
+                jResponse['errorId']    := 'NEW003'
+                jResponse['error']      := 'Erro na inclusao do registro'
+                jResponse['solution']   := 'Não foi possivel incluir registro, foi gerado um arquivo de log em' + cDirLog + cArqLog + ' '
+            Else
+                jResponse['note']    := 'Registro incluido com sucesso'
+
+            EndIf
+
+        EndIf
+
+
+    EndIf
+
+
+
+    ::cNewSend := jResponse:ToJson()
     fwRestArea(aArea)
 
 Return lRet
