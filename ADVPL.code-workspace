@@ -8,7 +8,8 @@
 		"totvsLanguageServer.welcomePage": false,
 		"totvsLanguageServer.askCompileResult": false,
 		"totvsLanguageServer.workspaceServerConfig": true,
-		"totvsLanguageServer.editor.linter.includes": "C:\\TOTVS12\\Protheus\\include"
+		"totvsLanguageServer.editor.linter.includes": "C:\\TOTVS12\\Protheus\\include",
+		"advpl.debug_multiThread": true
 	},
 	"launch": {
 		"version": "0.2.0",

@@ -104,11 +104,14 @@ WsMethod NewCli WsReceive cNewRece WsSend cNewSend WsService zWSClientes
     Else
 
         If Empty(jJsonRece:GetJsonObject('cnpj'))        .Or. ;
+            Empty(jJsonRece:GetJsonObject('pessoa'))    .Or. ;
             Empty(jJsonRece:GetJsonObject('nome'))      .Or. ;
             Empty(jJsonRece:GetJsonObject('nReduz'))    .Or. ;
             Empty(jJsonRece:GetJsonObject('tipo'))      .Or. ;
             Empty(jJsonRece:GetJsonObject('end'))       .Or. ;
+            Empty(jJsonRece:GetJsonObject('bairro'))    .Or. ;
             Empty(jJsonRece:GetJsonObject('mun'))       .Or. ;
+            Empty(jJsonRece:GetJsonObject('cep'))       .Or. ;
             Empty(jJsonRece:GetJsonObject('est'))
 
 
@@ -117,20 +120,23 @@ WsMethod NewCli WsReceive cNewRece WsSend cNewSend WsService zWSClientes
             jResponse['solution']:= 'Existem campos que não foram enviados, revise a estrutura do seu JSON'
 
         Else
-            aAdd(aDados, {'A1_CGC'  ,jJsonRece:GetJsonObject('cnpj')     , Nil})
-            aAdd(aDados, {'A1_NOME' ,jJsonRece:GetJsonObject('nome')    , Nil})
-            aAdd(aDados, {'A1_NREUZ',jJsonRece:GetJsonObject('nReduz')  , Nil})
-            aAdd(aDados, {'A1_TIPO' ,jJsonRece:GetJsonObject('tipo')    , Nil})
-            aAdd(aDados, {'A1_END'  ,jJsonRece:GetJsonObject('end')     , Nil})
-            aAdd(aDados, {'A1_MUN'  ,jJsonRece:GetJsonObject('mun')     , Nil}) 
-            aAdd(aDados, {'A1_EST'  ,jJsonRece:GetJsonObject('est')     , Nil})
+            aAdd(aDados, {'A1_CGC'      ,jJsonRece:GetJsonObject('cnpj')    , Nil})
+            aAdd(aDados, {'A1_PESSOA'   ,jJsonRece:GetJsonObject('pessoa')  , Nil})
+            aAdd(aDados, {'A1_NOME'     ,jJsonRece:GetJsonObject('nome')    , Nil})
+            aAdd(aDados, {'A1_NREDUZ'   ,jJsonRece:GetJsonObject('nReduz')  , Nil})
+            aAdd(aDados, {'A1_TIPO'     ,jJsonRece:GetJsonObject('tipo')    , Nil})
+            aAdd(aDados, {'A1_END'      ,jJsonRece:GetJsonObject('end')     , Nil})
+            aAdd(aDados, {'A1_BAIRRO'   ,jJsonRece:GetJsonObject('bairro')  , Nil})
+            aAdd(aDados, {'A1_MUN'      ,jJsonRece:GetJsonObject('mun')     , Nil})
+            aAdd(aDados, {'A1_CEP'      ,jJsonRece:GetJsonObject('cep')     , Nil})
+            aAdd(aDados, {'A1_EST'      ,jJsonRece:GetJsonObject('est')     , Nil})
 
             MsExecAuto({|x,y| CRMA980(x,y)}, aDados, 3)
 
             If lMsErroAuto
 
                 cErrorLog := ''
-                aLogAuto  := GetAutGrLog()
+                aLogAuto  := GetAutoGRLog()
                 For nLinha := 1 To Len(aLogAuto)
                     cErrorLog += aLogAuto[nLinha] + CRLF
                 Next nLinha
