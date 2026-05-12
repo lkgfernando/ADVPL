@@ -18,9 +18,9 @@
 WSRESTFUL zWSProdutos DESCRIPTION 'WebService Cadastro de Produtos'
 
 WSDATA id           AS STRING
-WSDATA updated_at   AS STRING
-WSDATA limit        AS INTEGER
-WSDATA page         AS INTEGER
+//WSDATA updated_at   AS STRING
+//WSDATA limit        AS INTEGER
+//WSDATA page         AS INTEGER
 
 // Métodos
 WSMETHOD GET  ID  DESCRIPTION 'Retorna o registro pesquisado' WSSYNTAX '/zWSProdutos/get_id?{id}'                       PATH 'get_id'   PRODUCES APPLICATION_JSON
