@@ -8,7 +8,7 @@
 		"totvsLanguageServer.welcomePage": false,
 		"totvsLanguageServer.askCompileResult": false,
 		"totvsLanguageServer.workspaceServerConfig": true,
-		"totvsLanguageServer.editor.linter.includes": "C:\\TOTVS12\\Protheus\\include",
+		"totvsLanguageServer.editor.linter.includes": "D:\\FONTES_GIT\\ADVPL\\INCLUDES",
 		"advpl.debug_multiThread": true
 	},
 	"launch": {
