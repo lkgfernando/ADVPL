@@ -4,3 +4,4 @@
 .vscode/.advpl/_binary_functions.prw
 .vscode/servers.json
 *.json
+.vscode/launch.json

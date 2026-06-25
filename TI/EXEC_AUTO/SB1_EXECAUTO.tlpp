@@ -1,0 +1,51 @@
+#Include "totvs.ch"
+
+
+/*/{Protheus.doc} U_SB1_EXECAUTO
+(long_description)
+@type user function
+@author FERNANDO RODRIGUES
+@since 24/06/2026
+
+/*/
+Function U_SB1_EXECAUTO()
+    Local aArea     := fwGetArea()
+    Local aDados    := Array(0)
+    Local aPergs    := Array(0)
+    Local cCodPrd   := space(TamSX3("B1_COD")[01])
+    Local cDescProd := space(TamSX3("B1_DESC")[01])
+    Local cTipProd  := space(TamSX3("B1_TIPO")[01])
+    Local cUniProd  := space(TamSX3("B1_UM")[01])
+    Local cArmProd  := space(TamSX3("B1_LOCPAD")[01])
+    Local cGrpProd  := space(TamSX3("B1_GRUPO")[01])
+
+    Private lMsErroAuto := .F.
+
+    aAdd(aPergs, {1, "Produto", cCodPrd,        "", ".T.", ""   ,".T.", 070, .T.})
+    aAdd(aPergs, {1, "Descrição", cDescProd,    "", ".T.", ""   ,".T.", 100, .T.})
+    aAdd(aPergs, {1, "Tipo", cTipProd,          "", ".T.", "02" ,".T.", 040, .T.})
+    aAdd(aPergs, {1, "Unidade", cUniProd,       "", ".T.", "SAH",".T.", 040, .T.})
+    aAdd(aPergs, {1, "Armazém", cArmProd,       "", ".T.", "NNR",".T.", 040, .T.})
+    aAdd(aPergs, {1, "Grupo", cGrpProd,         "", ".T.", "SMB",".T.", 040, .T.})
+
+    If ParamBox(aPergs, "Cadastro de Produtos", /*aRet*/, /*bOk*/, /*aButtons*/, /*lCentered*/, /*nPosx*/, /*nPosy*/, /*oDlgWizard*/, /*cLoad*/, .F., .F.)
+
+        aAdd(aDados, {"B1_COD",     MV_PAR01, NIL})
+        aAdd(aDados, {"B1_DESC",    MV_PAR02, NIL})
+        aAdd(aDados, {"B1_TIPO",    MV_PAR03, NIL})
+        aAdd(aDados, {"B1_UM",      MV_PAR04, NIL})
+        aAdd(aDados, {"B1_LOCPAD",  MV_PAR05, NIL})
+        aAdd(aDados, {"B1_GRUPO",   MV_PAR06, NIL})
+
+        MsExecAuto({|x,y| MATA010(x,y)}, aDados, 3)
+
+        If lMsErroAuto
+            MostaErro()
+        Else
+            fwAlertSuccess("Produtos" + SB1->B1_COD + " incluído com sucesso.", "Sucesso")
+        EndIf
+
+    EndIf
+
+    fwRestArea(aArea)
+Return 
