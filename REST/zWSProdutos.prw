@@ -24,8 +24,8 @@ WSDATA page         AS INTEGER
 
 // Métodos
 WSMETHOD GET  ID    DESCRIPTION 'Retorna o registro pesquisado' WSSYNTAX '/zWSProdutos/get_id?{id}'                         PATH 'get_id'   PRODUCES APPLICATION_JSON
-WSMETHOD GET ALL    DESCRIPTION 'Retorna todos os registros'    WSSYNTAX '/zWSProdutos/get_all?{updated_at, limit, page}'    PATH 'get_all'  PRODUCES APPLICATION_JSON
-WSMETHOD POST NEW   DESCRIPTION 'Inclusão de registro'          WSSYNTAX '/zWSProdutos/new'                                  PATH 'new'      PRODUCES APPLICATION_JSON
+WSMETHOD GET ALL    DESCRIPTION 'Retorna todos os registros'    WSSYNTAX '/zWSProduto/get_all?{updated_at, limit, page}'    PATH 'get_all'  PRODUCES APPLICATION_JSON
+WSMETHOD POST NEW   DESCRIPTION 'Inclusão de registro'          WSSYNTAX '/zWSProduto/new'                                  PATH 'new'      PRODUCES APPLICATION_JSON
 
 ENDWSRESTFUL 
 
@@ -179,92 +179,3 @@ WSMETHOD GET ALL WSRECEIVE updated_at, limit, page WSSERVICE zWSProdutos
     Self:SetResponse(jResponse:toJSON())
 
 Return lRet
-
-
-WSMETHOD POST NEW WSRECEIVE WSSERVICE zWSProdutos
-    Local lRet      := .T.
-    Local aDados    := {}
-    Local jJson     := Nil
-    Local cJson     := Self:GetContent()
-    Local cError    := ''
-    Local nLinha    := 0
-    Local cDirLog   := '\x_logs\'
-    Local cArqLog   := ''
-    Local cErrorLog := ''
-    Local aLogAuto  := {}
-    Local nCampo    := 0
-    Local jResponse := JsonObject():New()
-    Local cAliasWS  := 'SB1'
-
-    Private lMsErroAuto     := .F.
-    Private lMsHelpAuto     := .T.
-    Private lAutoErrNoFile  := .T.
-
-    If ! ExistDir(cDirLog)
-        MakeDir(cDirLog)
-    EndIf
-
-    Self:SetContentType('application/json')
-    jJson   := JsonObject():New()
-    cError  := jJson:FromJson(cJson)
-
-    If ! Empty(cError)
-        
-        Self:setStatus(500)
-        jResponse['errorId']    := 'NEW004'
-        jResponse['error']      := 'Parse do JSON'
-        jResponse['solution']   := 'Erro ao fazer o Parse do JSON'
-    
-    Else
-
-        dbSelectArea(cAliasWS)
-        
-        aAdd(aDados, {'B1_COD'  , jJson:GetJsonObject('cod')    , Nil})
-        aAdd(aDados, {'B1_DESC' , jJson:GetJsonObject('desc')   , Nil})
-        aAdd(aDados, {'B1_TIPO' , jJson:GetJsonObject('tipo')   , Nil})
-        aAdd(aDados, {'B1_UM'   , jJson:GetJsonObject('um')     , Nil})
-        aAdd(aDados, {'B1_LOCPAD', jJson:GetJsonObject('locpad'), Nil})
-        aAdd(aDados, {'B1_GRUPO' , jJson:GetJsonObject('grupo') , Nil})
-        aAdd(aDados, {'B1_POSIPI', jJson:GetJsonObject('ncm')   , Nil})
-
-        For nCampo := 1 To Len(aDados)
-
-            If GetSX3Cache(aDados[nCampo][1], 'X3_TIPO') == 'D'
-                aDados[nCampo][2] := StrTran(aDados[nCampo][2], '-', '')
-                aDados[nCampo][2] := sToD(aDados[nCampo][2])
-            
-            EndIf
-        Next
-
-        MsExecAuto({|x, y| MATA010(x,y)}, aDados, 3)
-
-
-        If lMsErroAuto
-            cErrorLog := ''
-            aLogAuto  := GetAutoGrLog()
-            
-            For nLinha := 1 To Len(aLogAuto)
-                cErrorLog += aLogAuto[nLinha] + CRLF
-            Next nLinha            
-
-            cArqLog := 'zWSProdutos_NEW_' + dToS(Date()) + '_' + StrTran(Time(), ':', '-') + '.log'
-            MemoWrite(cDirLog + cArqLog, cErrorLog)
-
-            Self:setStatus(500)
-            jResponse['errorId']    := 'NEW005'
-            jResponse['error']      := 'Erro na inclusão do registro'
-            jResponse['solution']   := 'Não foi possivel incluir registro, foi gerado um arquivo de log em ' + cDirLog + cArqLog + ' '
-            lRet := .F.
-
-        Else
-
-            jResponse['note']   := 'Registro incluido com sucesso'
-
-       EndIf
-
-    EndIf
-
-    Self:SetResponse(jResponse:toJSON())
-
-Return lRet
-
